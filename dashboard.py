@@ -4,83 +4,86 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 
-# find database path automatically
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "movies.db")
+# -----------------------------
+# Page Navigation Setup
+# -----------------------------
+if "page" not in st.session_state:
+    st.session_state.page = "home"
 
-# connect to database
-conn = sqlite3.connect(db_path)
 
-df = pd.read_sql_query("SELECT * FROM movies", conn)
+def go_to_dashboard():
+    st.session_state.page = "dashboard"
 
-st.title("🎬 Movie Data Dashboard")
 
-# -------------------------------
-# SEARCH FEATURE
-# -------------------------------
+# -----------------------------
+# HOME PAGE (Landing Page)
+# -----------------------------
+if st.session_state.page == "home":
 
-st.subheader("🔎 Search for a Movie")
+    st.title("🎬 Movie Data Automation Project")
 
-movie_search = st.text_input("Enter movie title")
+    st.markdown("""
+    ### Welcome!
 
-if movie_search:
-    results = df[df["title"].str.contains(movie_search, case=False)]
-    st.dataframe(results)
+    This application automatically collects movie data using an API,
+    stores it in a database, and provides insights through a dashboard.
 
-# -------------------------------
-# TOP RATED MOVIES
-# -------------------------------
+    #### Features:
+    - 📡 Automated data collection
+    - 🗄️ Database storage (SQLite)
+    - 📊 Data analysis
+    - 📈 Interactive visualisations
+    """)
 
-st.subheader("⭐ Top Rated Movies")
+    st.button("🚀 Get Started", on_click=go_to_dashboard)
 
-top_movies = df.sort_values(by="rating", ascending=False).head(10)
+# -----------------------------
+# DASHBOARD PAGE
+# -----------------------------
+elif st.session_state.page == "dashboard":
 
-st.dataframe(top_movies[["title", "rating", "release_date"]])
+    st.title("📊 Movie Dashboard")
 
-# -------------------------------
-# MOST POPULAR MOVIES
-# -------------------------------
+    # Database path
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
-st.subheader("🔥 Most Popular Movies")
+    # Connect to database
+    conn = sqlite3.connect(DB_PATH)
 
-popular_movies = df.sort_values(by="popularity", ascending=False).head(10)
+    # Load data
+    df = pd.read_sql_query("SELECT * FROM movies", conn)
 
-st.dataframe(popular_movies[["title", "popularity"]])
+    if df.empty:
+        st.warning("No data available. Run the data collection script.")
+    else:
+        # 🔎 Search
+        st.subheader("🔎 Search for a Movie")
+        search = st.text_input("Enter movie title")
 
-# -------------------------------
-# AVERAGE RATING
-# -------------------------------
+        if search:
+            results = df[df["title"].str.contains(
+                search, case=False, na=False)]
+            st.dataframe(results)
 
-st.subheader("📊 Average Rating")
+        # ⭐ Top Rated
+        st.subheader("⭐ Top Rated Movies")
+        top_movies = df.sort_values(by="rating", ascending=False).head(10)
+        st.dataframe(top_movies[["title", "rating", "release_date"]])
 
-st.write(round(df["rating"].mean(), 2))
+        # 🔥 Popular
+        st.subheader("🔥 Most Popular Movies")
+        popular = df.sort_values(by="popularity", ascending=False).head(10)
+        st.dataframe(popular[["title", "popularity"]])
 
-# -------------------------------
-# RATING DISTRIBUTION CHART
-# -------------------------------
+        # 📊 Average
+        st.subheader("📊 Average Rating")
+        st.write(round(df["rating"].mean(), 2))
 
-st.subheader("📈 Movie Rating Distribution")
+        # 📈 Rating Distribution
+        st.subheader("📈 Rating Distribution")
+        fig, ax = plt.subplots()
+        df["rating"].hist(bins=10, ax=ax)
+        st.pyplot(fig)
 
-fig, ax = plt.subplots()
-df["rating"].hist(bins=10, ax=ax)
-
-st.pyplot(fig)
-
-# -------------------------------
-# TOP 10 POPULARITY CHART
-# -------------------------------
-
-st.subheader("📊 Top 10 Most Popular Movies")
-
-top_popular = df.sort_values(by="popularity", ascending=False).head(10)
-
-fig, ax = plt.subplots()
-
-ax.barh(top_popular["title"], top_popular["popularity"])
-
-ax.set_xlabel("Popularity Score")
-ax.set_ylabel("Movie Title")
-
-ax.invert_yaxis()
-
-st.pyplot(fig)
+    conn.close()
