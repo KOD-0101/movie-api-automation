@@ -21,6 +21,8 @@ def go_to_dashboard():
 if st.session_state.page == "home":
 
     st.title("🎬 Movie Data Automation Project")
+    st.image("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4")
+    st.markdown("---")
 
     st.markdown("""
     ### Welcome!
