@@ -6,26 +6,51 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 
+# -----------------------------
+# LOAD ENVIRONMENT VARIABLES
+# -----------------------------
 load_dotenv()
 
 # -----------------------------
-# CONFIG
+# PAGE CONFIG
 # -----------------------------
-st.set_page_config(page_title="Movie Data Automation Project", layout="wide")
+st.set_page_config(
+    page_title="Movie Data Automation Project",
+    layout="wide"
+)
 
+# -----------------------------
+# API KEY
 # Try Streamlit secrets first, then .env
+# -----------------------------
 TMDB_API_KEY = None
+
 try:
     TMDB_API_KEY = st.secrets["TMDB_API_KEY"]
 except Exception:
     TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
+# -----------------------------
+# PATH SETUP
+# -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
 # -----------------------------
-# HELPERS
+# PAGE STATE
 # -----------------------------
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+
+if "selected_movie_id" not in st.session_state:
+    st.session_state.selected_movie_id = None
+
+
+# -----------------------------
+# HELPER FUNCTIONS
+# -----------------------------
+def go_to_dashboard():
+    st.session_state.page = "dashboard"
 
 
 def get_local_data() -> pd.DataFrame:
@@ -41,6 +66,7 @@ def tmdb_get(endpoint: str, params: dict | None = None) -> dict:
 
     url = f"https://api.themoviedb.org/3/{endpoint}"
     query = {"api_key": TMDB_API_KEY}
+
     if params:
         query.update(params)
 
@@ -58,6 +84,7 @@ def get_genres() -> list[dict]:
 @st.cache_data(ttl=1800)
 def get_movies_by_genre(genre_id: int, pages: int = 2) -> list[dict]:
     movies = []
+
     for page in range(1, pages + 1):
         data = tmdb_get(
             "discover/movie",
@@ -69,6 +96,7 @@ def get_movies_by_genre(genre_id: int, pages: int = 2) -> list[dict]:
             },
         )
         movies.extend(data.get("results", []))
+
     return movies
 
 
@@ -83,36 +111,45 @@ def poster_url(path: str | None) -> str | None:
     return f"https://image.tmdb.org/t/p/w500{path}"
 
 
-def go_to_dashboard():
-    st.session_state.page = "dashboard"
-
-
-# -----------------------------
-# PAGE STATE
-# -----------------------------
-if "page" not in st.session_state:
-    st.session_state.page = "home"
-
 # -----------------------------
 # HOME PAGE
 # -----------------------------
 if st.session_state.page == "home":
     st.title("🎬 Movie Data Automation Project")
 
+    st.image(
+        "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4",
+        width="stretch"
+    )
+
+    st.markdown("---")
+
     st.markdown(
         """
         ### Welcome
 
-        This application:
-        - collects movie data automatically
-        - stores it in a SQLite database
-        - analyses it using Python and SQL
-        - provides recommendations by genre
-        - displays movie summaries and insights
+        This application demonstrates a complete automated movie data workflow.
+
+        #### Features
+        - 📡 Automated movie data collection from the TMDB API
+        - 🗄️ SQLite database storage
+        - 📊 Data analysis using Python and SQL
+        - 📈 Interactive charts and dashboard insights
+        - 🎭 Genre-based movie recommendations
+        - 🎥 Movie summaries and details
         """
     )
 
-    st.button("🚀 Get Started", on_click=go_to_dashboard)
+    st.markdown("---")
+
+    col1, col2, col3 = st.columns([1, 2, 1])
+
+    with col2:
+        st.button("🚀 Get Started", on_click=go_to_dashboard,
+                  use_container_width=True)
+
+    st.markdown("---")
+    st.markdown("Built with Python, Streamlit, SQLite, and TMDB API")
 
 # -----------------------------
 # DASHBOARD PAGE
@@ -120,13 +157,16 @@ if st.session_state.page == "home":
 elif st.session_state.page == "dashboard":
     st.title("📊 Movie Dashboard")
 
-    # ---------- LOCAL DATABASE SECTION ----------
+    # -----------------------------
+    # LOCAL DATABASE ANALYTICS
+    # -----------------------------
     try:
         df = get_local_data()
 
         if df.empty:
             st.warning("No local database records found.")
         else:
+            # Search
             st.subheader("🔎 Search Local Database")
             search = st.text_input("Enter movie title")
 
@@ -135,6 +175,7 @@ elif st.session_state.page == "dashboard":
                     search, case=False, na=False)]
                 st.dataframe(results, use_container_width=True)
 
+            # Top rated and most popular tables
             col1, col2 = st.columns(2)
 
             with col1:
@@ -143,7 +184,7 @@ elif st.session_state.page == "dashboard":
                     by="rating", ascending=False).head(10)
                 st.dataframe(
                     top_movies[["title", "rating", "release_date"]],
-                    use_container_width=True,
+                    use_container_width=True
                 )
 
             with col2:
@@ -152,12 +193,14 @@ elif st.session_state.page == "dashboard":
                     by="popularity", ascending=False).head(10)
                 st.dataframe(
                     popular[["title", "popularity"]],
-                    use_container_width=True,
+                    use_container_width=True
                 )
 
+            # Average rating
             st.subheader("📊 Average Rating")
             st.write(round(df["rating"].mean(), 2))
 
+            # Charts
             chart_col1, chart_col2 = st.columns(2)
 
             with chart_col1:
@@ -184,7 +227,9 @@ elif st.session_state.page == "dashboard":
 
     st.markdown("---")
 
-    # ---------- GENRE RECOMMENDATION SECTION ----------
+    # -----------------------------
+    # GENRE-BASED RECOMMENDATIONS
+    # -----------------------------
     st.header("🎭 Genre-Based Recommendations")
 
     if not TMDB_API_KEY:
@@ -199,7 +244,7 @@ elif st.session_state.page == "dashboard":
                 "Choose a genre",
                 genre_names,
                 index=genre_names.index(
-                    "Horror") if "Horror" in genre_names else 0,
+                    "Horror") if "Horror" in genre_names else 0
             )
 
             selected_genre_id = genre_map[selected_genre_name]
@@ -210,42 +255,69 @@ elif st.session_state.page == "dashboard":
             else:
                 st.subheader(f"Recommended {selected_genre_name} Movies")
 
-                movie_options = {
-                    f'{m.get("title", "Unknown Title")} ({m.get("release_date", "N/A")[:4] if m.get("release_date") else "N/A"})': m["id"]
-                    for m in genre_movies
-                }
+                # Show first 12 movies as cards
+                genre_movies = genre_movies[:12]
+                cols = st.columns(3)
 
-                selected_movie_label = st.selectbox(
-                    "Select a movie to view details",
-                    list(movie_options.keys()),
-                )
+                for i, movie in enumerate(genre_movies):
+                    with cols[i % 3]:
+                        poster = poster_url(movie.get("poster_path"))
 
-                selected_movie_id = movie_options[selected_movie_label]
-                details = get_movie_details(selected_movie_id)
+                        if poster:
+                            st.image(poster, width="stretch")
+                        else:
+                            st.write("No poster available")
 
-                detail_col1, detail_col2 = st.columns([1, 2])
+                        st.markdown(
+                            f"**{movie.get('title', 'Unknown Title')}**")
 
-                with detail_col1:
-                    poster = poster_url(details.get("poster_path"))
-                    if poster:
-                        st.image(poster, width="stretch")
+                        release_date = movie.get("release_date", "")
+                        year = release_date[:4] if release_date else "N/A"
 
-                with detail_col2:
-                    st.subheader(details.get("title", "Unknown Title"))
-                    st.markdown(
-                        f"**Release Date:** {details.get('release_date', 'N/A')}")
-                    st.markdown(
-                        f"**Rating:** {details.get('vote_average', 'N/A')}")
-                    st.markdown(
-                        f"**Votes:** {details.get('vote_count', 'N/A')}")
-                    st.markdown(
-                        f"**Popularity:** {details.get('popularity', 'N/A')}")
-                    runtime = details.get("runtime")
-                    if runtime:
-                        st.markdown(f"**Runtime:** {runtime} minutes")
+                        st.write(f"Year: {year}")
+                        st.write(f"Rating: {movie.get('vote_average', 'N/A')}")
 
-                    st.markdown("**Summary**")
-                    st.write(details.get("overview", "No summary available."))
+                        if st.button("View Details", key=f"movie_{movie['id']}"):
+                            st.session_state.selected_movie_id = movie["id"]
+
+                # Movie details section
+                if st.session_state.selected_movie_id:
+                    details = get_movie_details(
+                        st.session_state.selected_movie_id)
+
+                    st.markdown("---")
+                    st.header("🎥 Movie Details")
+
+                    detail_col1, detail_col2 = st.columns([1, 2])
+
+                    with detail_col1:
+                        poster = poster_url(details.get("poster_path"))
+                        if poster:
+                            st.image(poster, width="stretch")
+
+                    with detail_col2:
+                        st.subheader(details.get("title", "Unknown Title"))
+                        st.markdown(
+                            f"**Release Date:** {details.get('release_date', 'N/A')}")
+                        st.markdown(
+                            f"**Rating:** {details.get('vote_average', 'N/A')}")
+                        st.markdown(
+                            f"**Votes:** {details.get('vote_count', 'N/A')}")
+                        st.markdown(
+                            f"**Popularity:** {details.get('popularity', 'N/A')}")
+
+                        runtime = details.get("runtime")
+                        if runtime:
+                            st.markdown(f"**Runtime:** {runtime} minutes")
+
+                        genres = details.get("genres", [])
+                        if genres:
+                            genre_list = ", ".join(g["name"] for g in genres)
+                            st.markdown(f"**Genres:** {genre_list}")
+
+                        st.markdown("**Summary:**")
+                        st.write(details.get(
+                            "overview", "No summary available."))
 
         except Exception as e:
             st.error(f"Genre recommendation section failed: {e}")
