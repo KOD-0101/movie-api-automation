@@ -1,0 +1,7 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+top_movies.csv
+.DS_Store
+workflow.log
