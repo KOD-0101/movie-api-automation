@@ -64,17 +64,23 @@ def render_local_analytics():
 
         with col1:
             st.subheader("⭐ Top Rated Movies")
-            top_movies = df.sort_values(by="rating", ascending=False).head(10)
+            top_rated = df.sort_values(by="rating", ascending=False).head(10)
+            # format rating to 1 decimal place
+            top_rated["rating"] = top_rated["rating"].round(1)
             st.dataframe(
-                top_movies[["title", "rating", "release_date"]],
+                top_rated[["title", "rating", "release_date"]],
                 use_container_width=True
             )
 
         with col2:
             st.subheader("🔥 Most Popular Movies")
-            popular = df.sort_values(by="popularity", ascending=False).head(10)
+            most_popular = df.sort_values(
+                by="popularity", ascending=False).head(10)
+            # format popularity to whole numbers
+            most_popular["popularity"] = most_popular["popularity"].round(
+                0).astype(int)
             st.dataframe(
-                popular[["title", "popularity"]],
+                most_popular[["title", "popularity",]],
                 use_container_width=True
             )
 
