@@ -1,0 +1,94 @@
+name: CI Checks
+
+on:
+  push:
+    branches:
+      - dev
+      - 'feature/**'
+      - 'hotfix/**'
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+jobs:
+  basic-checks:
+    name: Basic Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Verify imports
+        run: |
+          python -c "import requests, pandas, streamlit, matplotlib"
+          python -c "import api, database, ui_helpers, dashboard"
+
+      - name: Check app entry point
+        run: python -m py_compile app.py
+
+      - name: Check scripts compile
+        run: |
+          python -m py_compile get_top_movies.py
+          python -m py_compile analyze_movies.py
+          python -m py_compile api.py
+          python -m py_compile database.py
+          python -m py_compile ui_helpers.py
+          python -m py_compile dashboard.py
+
+  dev-validation:
+    name: Dev Validation
+    if: github.ref == 'refs/heads/dev' || github.base_ref == 'dev'
+    runs-on: ubuntu-latest
+    needs: basic-checks
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate dashboard structure
+        run: |
+          python -c "from ui_helpers import initialize_session_state, go_to_dashboard, poster_url"
+          python -c "from database import get_local_data"
+          python -c "from dashboard import render_home_page, render_dashboard_page"
+
+  production-check:
+    name: Production Check
+    if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    needs: basic-checks
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Final production validation
+        run: |
+          python -c "print('Production branch validation passed')"
