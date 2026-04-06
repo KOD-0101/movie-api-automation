@@ -1,12 +1,16 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-
+from logger_setup import get_logger
 from database import get_local_data
 from api import get_genres, get_movies_by_genre, get_movie_details, TMDB_API_KEY
 from ui_helpers import poster_url, go_to_dashboard
 
+logger = get_logger("dashboard")
+
 
 def render_home_page():
+    logger.info("Rendering home page")
+
     st.title("🎬 Movie Data Automation Project")
 
     st.image(
@@ -45,10 +49,13 @@ def render_home_page():
 
 
 def render_local_analytics():
+    logger.info("Rendering local analytics section")
+
     try:
         df = get_local_data()
 
         if df.empty:
+            logger.warning("No local database records found")
             st.warning("No local database records found.")
             return
 
@@ -56,6 +63,7 @@ def render_local_analytics():
         search = st.text_input("Enter movie title")
 
         if search:
+            logger.info(f"User searched local database for: {search}")
             results = df[df["title"].str.contains(
                 search, case=False, na=False)]
             st.dataframe(results, use_container_width=True)
@@ -64,7 +72,9 @@ def render_local_analytics():
 
         with col1:
             st.subheader("⭐ Top Rated Movies")
-            top_movies = df.sort_values(by="rating", ascending=False).head(10)
+            top_movies = df.sort_values(
+                by="rating", ascending=False).head(10).copy()
+            top_movies["rating"] = top_movies["rating"].round(1)
             st.dataframe(
                 top_movies[["title", "rating", "release_date"]],
                 use_container_width=True
@@ -72,7 +82,9 @@ def render_local_analytics():
 
         with col2:
             st.subheader("🔥 Most Popular Movies")
-            popular = df.sort_values(by="popularity", ascending=False).head(10)
+            popular = df.sort_values(
+                by="popularity", ascending=False).head(10).copy()
+            popular["popularity"] = popular["popularity"].round(0).astype(int)
             st.dataframe(
                 popular[["title", "popularity"]],
                 use_container_width=True
@@ -102,14 +114,19 @@ def render_local_analytics():
             ax2.invert_yaxis()
             st.pyplot(fig2)
 
-    except Exception as e:
-        st.error(f"Local database section failed: {e}")
+    except Exception:
+        logger.exception("Local database section failed")
+        st.error("Local database section failed.")
 
 
 def render_genre_recommendations():
+    logger.info("Rendering genre recommendation section")
+
     st.header("🎭 Genre-Based Recommendations")
 
     if not TMDB_API_KEY:
+        logger.warning(
+            "TMDB live recommendation features unavailable due to missing API key")
         st.warning("TMDB live recommendation features need a TMDB_API_KEY.")
         return
 
@@ -124,10 +141,13 @@ def render_genre_recommendations():
             index=genre_names.index("Horror") if "Horror" in genre_names else 0
         )
 
+        logger.info(f"Selected genre: {selected_genre_name}")
+
         selected_genre_id = genre_map[selected_genre_name]
         genre_movies = get_movies_by_genre(selected_genre_id, pages=2)
 
         if not genre_movies:
+            logger.warning(f"No movies found for genre: {selected_genre_name}")
             st.info("No movies found for this genre.")
             return
 
@@ -155,6 +175,8 @@ def render_genre_recommendations():
 
                 if st.button("View Details", key=f"movie_{movie['id']}"):
                     st.session_state.selected_movie_id = movie["id"]
+                    logger.info(
+                        f"Selected movie details for movie_id={movie['id']}")
 
         if st.session_state.selected_movie_id:
             details = get_movie_details(st.session_state.selected_movie_id)
@@ -191,11 +213,13 @@ def render_genre_recommendations():
                 st.markdown("**Summary:**")
                 st.write(details.get("overview", "No summary available."))
 
-    except Exception as e:
-        st.error(f"Genre recommendation section failed: {e}")
+    except Exception:
+        logger.exception("Genre recommendation section failed")
+        st.error("Genre recommendation section failed.")
 
 
 def render_dashboard_page():
+    logger.info("Rendering dashboard page")
     st.title("📊 Movie Dashboard")
     render_local_analytics()
     st.markdown("---")
