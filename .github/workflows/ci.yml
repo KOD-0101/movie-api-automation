@@ -47,6 +47,12 @@ jobs:
           python -m py_compile ui_helpers.py
           python -m py_compile dashboard.py
 
+      - name: Check validation module
+        run: python -c "from validation import is_valid_movie"
+        
+      - name: Run unit tests
+        run: pytest
+
   dev-validation:
     name: Dev Validation
     if: github.ref == 'refs/heads/dev' || github.base_ref == 'dev'
