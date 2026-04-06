@@ -18,6 +18,9 @@ jobs:
     name: Basic Checks
     runs-on: ubuntu-latest
 
+    env:
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -54,6 +57,18 @@ jobs:
 
       - name: Run unit tests
         run: python -m pytest
+
+      - name: Run ingestion
+        run: python get_top_movies.py
+
+      - name: Run analysis
+        run: python analyze_movies.py
+
+      - name: Upload workflow logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-logs
+          path: workflow.log
 
   dev-validation:
     name: Dev Validation
