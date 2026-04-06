@@ -1,77 +1,63 @@
-import requests
-import os
 import sqlite3
-from datetime import datetime
-from dotenv import load_dotenv
+import os
 from logger_setup import get_logger
 
-load_dotenv()
-logger = get_logger("get_top_movies")
-
-API_KEY = os.getenv("TMDB_API_KEY")
-
-if not API_KEY:
-    logger.error("API key not found")
-    print("Error: API key not found.")
-    exit()
-
-today = datetime.today().strftime("%Y-%m-%d")
+logger = get_logger("analyze_movies")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
-logger.info("Movie ingestion started")
 
-conn = sqlite3.connect(DB_PATH)
-cursor = conn.cursor()
+def main():
+    logger.info("Analysis started")
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS movies (
-    date TEXT,
-    title TEXT,
-    rating REAL,
-    votes INTEGER,
-    release_date TEXT,
-    popularity REAL
-)
-""")
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
 
-logger.info("Database connection established and table checked")
+        print("\nTop 10 Highest Rated Movies:\n")
+        logger.info("Running top rated movie query")
 
-total_inserted = 0
-
-for page in range(1, 6):
-    url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&page={page}"
-    logger.info(f"Fetching page {page} from TMDB API")
-
-    response = requests.get(url)
-
-    if response.status_code != 200:
-        logger.warning(
-            f"API request failed on page {page}: {response.status_code}")
-        print("API request failed:", response.status_code)
-        conn.close()
-        exit()
-
-    data = response.json()
-
-    for movie in data.get("results", []):
         cursor.execute("""
-        INSERT INTO movies (date, title, rating, votes, release_date, popularity)
-        VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            today,
-            movie.get("title"),
-            movie.get("vote_average"),
-            movie.get("vote_count"),
-            movie.get("release_date"),
-            movie.get("popularity")
-        ))
-        total_inserted += 1
+        SELECT title, rating
+        FROM movies
+        ORDER BY rating DESC
+        LIMIT 10
+        """)
 
-conn.commit()
-conn.close()
+        for row in cursor.fetchall():
+            print(row)
 
-logger.info(
-    f"Movie ingestion completed successfully. Inserted {total_inserted} records.")
-print("Movie database updated successfully.")
+        print("\nMost Popular Movies:\n")
+        logger.info("Running most popular movie query")
+
+        cursor.execute("""
+        SELECT title, popularity
+        FROM movies
+        ORDER BY popularity DESC
+        LIMIT 10
+        """)
+
+        for row in cursor.fetchall():
+            print(row)
+
+        print("\nAverage Movie Rating:\n")
+        logger.info("Calculating average movie rating")
+
+        cursor.execute("""
+        SELECT AVG(rating)
+        FROM movies
+        """)
+
+        print(cursor.fetchone()[0])
+
+        conn.close()
+        logger.info("Analysis completed successfully")
+
+    except Exception:
+        logger.exception("Analysis failed")
+        raise
+
+
+if __name__ == "__main__":
+    main()
