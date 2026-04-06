@@ -28,6 +28,9 @@ def main():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
+    cursor.execute("DROP TABLE IF EXISTS movies")
+    logger.warning("Dropped existing movies table to apply new schema")
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS movies (
         movie_id INTEGER,
