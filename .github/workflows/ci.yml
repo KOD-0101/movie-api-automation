@@ -18,6 +18,10 @@ jobs:
     name: Basic Checks
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: movie_api_automation
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,8 +36,8 @@ jobs:
 
       - name: Verify imports
         run: |
-          python -c "import requests, pandas, streamlit, matplotlib"
-          python -c "import api, database, ui_helpers, dashboard"
+          python -c "import requests, pandas, streamlit, matplotlib, pytest"
+          python -c "import api, database, ui_helpers, dashboard, validation, logger_setup"
 
       - name: Check app entry point
         run: python -m py_compile app.py
@@ -46,6 +50,14 @@ jobs:
           python -m py_compile database.py
           python -m py_compile ui_helpers.py
           python -m py_compile dashboard.py
+          python -m py_compile validation.py
+          python -m py_compile logger_setup.py
+
+      - name: Check validation module
+        run: python -c "from validation import is_valid_movie"
+
+      - name: Run unit tests
+        run: python -m pytest
 
   dev-validation:
     name: Dev Validation
