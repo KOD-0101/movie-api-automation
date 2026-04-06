@@ -9,98 +9,105 @@ from validation import is_valid_movie
 load_dotenv()
 logger = get_logger("get_top_movies")
 
-API_KEY = os.getenv("TMDB_API_KEY")
 
-if not API_KEY:
-    logger.error("API key not found")
-    print("Error: API key not found.")
-    exit()
+def main():
+    API_KEY = os.getenv("TMDB_API_KEY")
 
-today = datetime.today().strftime("%Y-%m-%d")
+    if not API_KEY:
+        logger.error("API key not found")
+        print("Error: API key not found.")
+        return
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "movies.db")
+    today = datetime.today().strftime("%Y-%m-%d")
 
-logger.info("Movie ingestion started")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
-conn = sqlite3.connect(DB_PATH)
-cursor = conn.cursor()
+    logger.info("Movie ingestion started")
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS movies (
-    movie_id INTEGER,
-    date TEXT,
-    title TEXT,
-    rating REAL,
-    votes INTEGER,
-    release_date TEXT,
-    popularity REAL,
-    category TEXT
-)
-""")
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
 
-cursor.execute("""
-CREATE UNIQUE INDEX IF NOT EXISTS idx_movies_unique
-ON movies (movie_id, date, category)
-""")
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS movies (
+        movie_id INTEGER,
+        date TEXT,
+        title TEXT,
+        rating REAL,
+        votes INTEGER,
+        release_date TEXT,
+        popularity REAL,
+        category TEXT
+    )
+    """)
 
-logger.info("Database connection established and table checked")
+    cursor.execute("""
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_movies_unique
+    ON movies (movie_id, date, category)
+    """)
 
-endpoints = {
-    "top_rated": "movie/top_rated",
-    "popular": "movie/popular",
-    "now_playing": "movie/now_playing",
-    "upcoming": "movie/upcoming"
-}
+    logger.info("Database connection established and table checked")
 
-pages_to_fetch = 5
+    endpoints = {
+        "top_rated": "movie/top_rated",
+        "popular": "movie/popular",
+        "now_playing": "movie/now_playing",
+        "upcoming": "movie/upcoming"
+    }
 
-total_inserted = 0
-total_skipped = 0
+    pages_to_fetch = 5
 
-for category, endpoint in endpoints.items():
-    for page in range(1, pages_to_fetch + 1):
-        url = f"https://api.themoviedb.org/3/{endpoint}?api_key={API_KEY}&page={page}"
-        logger.info(f"Fetching category={category}, page={page}")
+    total_inserted = 0
+    total_skipped = 0
 
-        response = requests.get(url)
+    for category, endpoint in endpoints.items():
+        for page in range(1, pages_to_fetch + 1):
+            url = f"https://api.themoviedb.org/3/{endpoint}?api_key={API_KEY}&page={page}"
+            logger.info(f"Fetching category={category}, page={page}")
 
-        if response.status_code != 200:
-            logger.warning(
-                f"API request failed for {category}, page {page}: {response.status_code}")
-            continue
+            response = requests.get(url)
 
-        data = response.json()
-
-        for movie in data.get("results", []):
-            valid, reason = is_valid_movie(movie)
-
-            if not valid:
-                total_skipped += 1
-                logger.warning(f"Skipped movie record: {reason}")
+            if response.status_code != 200:
+                logger.warning(
+                    f"API request failed for {category}, page {page}: {response.status_code}"
+                )
                 continue
 
-            cursor.execute("""
-            INSERT OR IGNORE INTO movies
-            (movie_id, date, title, rating, votes, release_date, popularity, category)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                movie.get("id"),
-                today,
-                movie.get("title"),
-                movie.get("vote_average"),
-                movie.get("vote_count"),
-                movie.get("release_date"),
-                movie.get("popularity"),
-                category
-            ))
+            data = response.json()
 
-            total_inserted += 1
+            for movie in data.get("results", []):
+                valid, reason = is_valid_movie(movie)
 
-conn.commit()
-conn.close()
+                if not valid:
+                    total_skipped += 1
+                    logger.warning(f"Skipped movie record: {reason}")
+                    continue
 
-logger.info(
-    f"Movie ingestion completed successfully. Inserted={total_inserted}, Skipped={total_skipped}"
-)
-print("Movie database updated successfully.")
+                cursor.execute("""
+                INSERT OR IGNORE INTO movies
+                (movie_id, date, title, rating, votes, release_date, popularity, category)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    movie.get("id"),
+                    today,
+                    movie.get("title"),
+                    movie.get("vote_average"),
+                    movie.get("vote_count"),
+                    movie.get("release_date"),
+                    movie.get("popularity"),
+                    category
+                ))
+
+                total_inserted += 1
+
+    conn.commit()
+    conn.close()
+
+    logger.info(
+        f"Movie ingestion completed successfully. Inserted={total_inserted}, Skipped={total_skipped}"
+    )
+    print("Movie database updated successfully.")
+
+
+if __name__ == "__main__":
+    main()
