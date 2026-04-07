@@ -3,63 +3,111 @@ import os
 import sqlite3
 from datetime import datetime
 from dotenv import load_dotenv
+from logger_setup import get_logger
+from validation import is_valid_movie
 
-# Load environment variables
 load_dotenv()
+logger = get_logger("get_top_movies")
 
-API_KEY = os.getenv("TMDB_API_KEY")
 
-if not API_KEY:
-    print("Error: API key not found.")
-    exit()
+def main():
+    API_KEY = os.getenv("TMDB_API_KEY")
 
-today = datetime.today().strftime("%Y-%m-%d")
+    if not API_KEY:
+        logger.error("API key not found")
+        print("Error: API key not found.")
+        return
 
-# Connect to database (creates file if it doesn't exist)
-conn = sqlite3.connect("movies.db")
-cursor = conn.cursor()
+    today = datetime.today().strftime("%Y-%m-%d")
 
-# Create table if it doesn't exist
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS movies (
-    date TEXT,
-    title TEXT,
-    rating REAL,
-    votes INTEGER,
-    release_date TEXT,
-    popularity REAL
-)
-""")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
-# Collect movies
-for page in range(1, 6):
+    logger.info("Movie ingestion started")
 
-    url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&page={page}"
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
 
-    response = requests.get(url)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS movies (
+        movie_id INTEGER,
+        date TEXT,
+        title TEXT,
+        rating REAL,
+        votes INTEGER,
+        release_date TEXT,
+        popularity REAL,
+        category TEXT
+    )
+    """)
 
-    if response.status_code != 200:
-        print("API request failed:", response.status_code)
-        exit()
+    cursor.execute("""
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_movies_unique
+    ON movies (movie_id, date, category)
+    """)
 
-    data = response.json()
+    logger.info("Database connection established and table checked")
 
-    for movie in data["results"]:
+    endpoints = {
+        "top_rated": "movie/top_rated",
+        "popular": "movie/popular",
+        "now_playing": "movie/now_playing",
+        "upcoming": "movie/upcoming"
+    }
 
-        cursor.execute("""
-        INSERT INTO movies (date,title,rating,votes,release_date,popularity)
-        VALUES (?,?,?,?,?,?)
-        """, (
-            today,
-            movie.get("title"),
-            movie.get("vote_average"),
-            movie.get("vote_count"),
-            movie.get("release_date"),
-            movie.get("popularity")
-        ))
+    pages_to_fetch = 5
 
-# Save changes
-conn.commit()
-conn.close()
+    total_inserted = 0
+    total_skipped = 0
 
-print("Movie database updated successfully.")
+    for category, endpoint in endpoints.items():
+        for page in range(1, pages_to_fetch + 1):
+            url = f"https://api.themoviedb.org/3/{endpoint}?api_key={API_KEY}&page={page}"
+            logger.info(f"Fetching category={category}, page={page}")
+
+            response = requests.get(url)
+
+            if response.status_code != 200:
+                logger.warning(
+                    f"API request failed for {category}, page {page}: {response.status_code}"
+                )
+                continue
+
+            data = response.json()
+
+            for movie in data.get("results", []):
+                valid, reason = is_valid_movie(movie)
+
+                if not valid:
+                    total_skipped += 1
+                    logger.warning(f"Skipped movie record: {reason}")
+                    continue
+
+                cursor.execute("""
+                INSERT OR IGNORE INTO movies
+                (movie_id, date, title, rating, votes, release_date, popularity, category)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    movie.get("id"),
+                    today,
+                    movie.get("title"),
+                    movie.get("vote_average"),
+                    movie.get("vote_count"),
+                    movie.get("release_date"),
+                    movie.get("popularity"),
+                    category
+                ))
+
+                total_inserted += 1
+
+    conn.commit()
+    conn.close()
+
+    logger.info(
+        f"Movie ingestion completed successfully. Inserted={total_inserted}, Skipped={total_skipped}"
+    )
+    print("Movie database updated successfully.")
+
+
+if __name__ == "__main__":
+    main()

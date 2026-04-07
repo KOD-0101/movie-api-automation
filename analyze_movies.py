@@ -1,40 +1,63 @@
 import sqlite3
+import os
+from logger_setup import get_logger
 
-# connect to database
-conn = sqlite3.connect("movies.db")
-cursor = conn.cursor()
+logger = get_logger("analyze_movies")
 
-print("\nTop 10 Highest Rated Movies:\n")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "movies.db")
 
-cursor.execute("""
-SELECT title, rating
-FROM movies
-ORDER BY rating DESC
-LIMIT 10
-""")
 
-for row in cursor.fetchall():
-    print(row)
+def main():
+    logger.info("Analysis started")
 
-print("\nMost Popular Movies:\n")
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
 
-cursor.execute("""
-SELECT title, popularity
-FROM movies
-ORDER BY popularity DESC
-LIMIT 10
-""")
+        print("\nTop 10 Highest Rated Movies:\n")
+        logger.info("Running top rated movie query")
 
-for row in cursor.fetchall():
-    print(row)
+        cursor.execute("""
+        SELECT title, rating
+        FROM movies
+        ORDER BY rating DESC
+        LIMIT 10
+        """)
 
-print("\nAverage Movie Rating:\n")
+        for row in cursor.fetchall():
+            print(row)
 
-cursor.execute("""
-SELECT AVG(rating)
-FROM movies
-""")
+        print("\nMost Popular Movies:\n")
+        logger.info("Running most popular movie query")
 
-print(cursor.fetchone()[0])
+        cursor.execute("""
+        SELECT title, popularity
+        FROM movies
+        ORDER BY popularity DESC
+        LIMIT 10
+        """)
 
-conn.close()
+        for row in cursor.fetchall():
+            print(row)
+
+        print("\nAverage Movie Rating:\n")
+        logger.info("Calculating average movie rating")
+
+        cursor.execute("""
+        SELECT AVG(rating)
+        FROM movies
+        """)
+
+        print(cursor.fetchone()[0])
+
+        conn.close()
+        logger.info("Analysis completed successfully")
+
+    except Exception:
+        logger.exception("Analysis failed")
+        raise
+
+
+if __name__ == "__main__":
+    main()
