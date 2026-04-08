@@ -15,7 +15,7 @@ def render_home_page():
 
     st.image(
         "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4",
-        width="stretch"
+        width=500
     )
 
     st.markdown("---")
