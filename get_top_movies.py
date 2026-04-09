@@ -28,6 +28,8 @@ def main():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
+    cursor.execute("DROP TABLE IF EXISTS movies")
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS movies (
         movie_id INTEGER,
