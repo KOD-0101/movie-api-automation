@@ -13,7 +13,7 @@ def make_st_mock():
     st.cache_data = lambda **kwargs: (lambda f: f)
     st.session_state = MagicMock()
     st.session_state.selected_movie_id = None
-    st.columns.return_value = [MagicMock(), MagicMock()]
+    st.columns.return_value = [MagicMock(), MagicMock(), MagicMock()]
     st.secrets = {}
     return st
 
