@@ -9,8 +9,15 @@ permissions:
   contents: write
 
 jobs:
+
+  # - Stage 1: Fetch & Store Movie Data
   run-script:
+    name: Fetch Movie Data
     runs-on: ubuntu-latest
+
+    outputs:
+      rows_inserted: ${{ steps.fetch.outputs.rows_inserted }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,15 +30,218 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run movie script
+      - name: Run movie ingestion script
+        id: fetch
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          python get_top_movies.py
+          COUNT=$(python -c "import sqlite3; conn = sqlite3.connect('movies.db'); c = conn.cursor(); c.execute('SELECT COUNT(*) FROM movies'); print(c.fetchone()[0])")
+          echo "rows_inserted=$COUNT" >> $GITHUB_OUTPUT
+          echo "Rows in DB after ingestion: $COUNT"
+
+      - name: Fail if database is empty
+        run: |
+          python - <<'EOF'
+          import sqlite3, sys
+          conn = sqlite3.connect("movies.db")
+          count = conn.execute("SELECT COUNT(*) FROM movies").fetchone()[0]
+          conn.close()
+          if count == 0:
+              print("FATAL: No records were inserted. Aborting workflow.")
+              sys.exit(1)
+          print(f"Ingestion check passed: {count} records present")
+          EOF
+
+      - name: Upload database as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: movies-db-${{ github.run_id }}
+          path: movies.db
+
+  # - Stage 2: Validate Ingested Data 
+  validate-data:
+    name: Validate Ingested Data
+    runs-on: ubuntu-latest
+    needs: run-script
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Schema validation
+        run: |
+          python - <<'EOF'
+          import sqlite3, sys
+
+          EXPECTED_COLUMNS = {"movie_id", "date", "title", "rating", "votes", "release_date", "popularity", "category"}
+
+          conn = sqlite3.connect("movies.db")
+          cursor = conn.cursor()
+          cursor.execute("PRAGMA table_info(movies)")
+          columns = {row[1] for row in cursor.fetchall()}
+          conn.close()
+
+          missing = EXPECTED_COLUMNS - columns
+          if missing:
+              print(f"FATAL: Missing columns: {missing}")
+              sys.exit(1)
+
+          print(f"Schema valid. Columns: {columns}")
+          EOF
+
+      - name: Data integrity checks
+        run: |
+          python - <<'EOF'
+          import sqlite3, sys
+
+          conn = sqlite3.connect("movies.db")
+          cursor = conn.cursor()
+          issues = []
+
+          cursor.execute("SELECT COUNT(*) FROM movies")
+          count = cursor.fetchone()[0]
+          print(f"Total records: {count}")
+
+          cursor.execute("SELECT COUNT(*) FROM movies WHERE title IS NULL OR title = ''")
+          missing_titles = cursor.fetchone()[0]
+          if missing_titles > 0:
+              issues.append(f"{missing_titles} records with missing titles")
+
+          cursor.execute("SELECT COUNT(*) FROM movies WHERE rating < 0 OR rating > 10")
+          bad_ratings = cursor.fetchone()[0]
+          if bad_ratings > 0:
+              issues.append(f"{bad_ratings} records with invalid ratings")
+
+          cursor.execute("SELECT COUNT(*) FROM movies WHERE movie_id IS NULL")
+          missing_ids = cursor.fetchone()[0]
+          if missing_ids > 0:
+              issues.append(f"{missing_ids} records with missing IDs")
+
+          cursor.execute("SELECT COUNT(DISTINCT category) FROM movies")
+          categories = cursor.fetchone()[0]
+          print(f"Categories present: {categories}")
+          if categories < 2:
+              issues.append(f"Only {categories} category found — expected at least 2")
+
+          cursor.execute("SELECT AVG(rating), MIN(rating), MAX(rating) FROM movies")
+          avg, mn, mx = cursor.fetchone()
+          print(f"Ratings — avg: {avg:.2f}, min: {mn}, max: {mx}")
+
+          conn.close()
+
+          if issues:
+              for issue in issues:
+                  print(f"ERROR: {issue}")
+              sys.exit(1)
+
+          print("All integrity checks passed")
+          EOF
+
+      - name: Export CSV summary
+        run: |
+          python - <<'EOF'
+          import sqlite3
+          import csv
+
+          conn = sqlite3.connect("movies.db")
+          cursor = conn.cursor()
+          cursor.execute("""
+              SELECT title, rating, popularity, category, release_date
+              FROM movies
+              ORDER BY rating DESC
+              LIMIT 50
+          """)
+          rows = cursor.fetchall()
+          headers = ["title", "rating", "popularity", "category", "release_date"]
+          conn.close()
+
+          with open("top_movies.csv", "w", newline="", encoding="utf-8") as f:
+              writer = csv.writer(f)
+              writer.writerow(headers)
+              writer.writerows(rows)
+
+          print(f"Exported {len(rows)} rows to top_movies.csv")
+          EOF
+
+  # - Stage 3: Commit Updated Data 
+  commit-data:
+    name: Commit Updated Data
+    runs-on: ubuntu-latest
+    needs: validate-data
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Re-run ingestion to get fresh data in this job
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: python get_top_movies.py
+
+      - name: Re-export CSV
+        run: |
+          python - <<'EOF'
+          import sqlite3, csv
+
+          conn = sqlite3.connect("movies.db")
+          cursor = conn.cursor()
+          cursor.execute("""
+              SELECT title, rating, popularity, category, release_date
+              FROM movies ORDER BY rating DESC LIMIT 50
+          """)
+          rows = cursor.fetchall()
+          conn.close()
+
+          with open("top_movies.csv", "w", newline="", encoding="utf-8") as f:
+              writer = csv.writer(f)
+              writer.writerow(["title", "rating", "popularity", "category", "release_date"])
+              writer.writerows(rows)
+          print(f"CSV ready: {len(rows)} rows")
+          EOF
 
       - name: Commit updated files
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add top_movies.csv movies.db
-          git commit -m "Update movie data" || echo "No changes"
+          git commit -m "Update movie data [$(date -u '+%Y-%m-%d %H:%M UTC')]" || echo "No changes to commit"
           git push
+
+  # - Stage 4: Workflow Summary
+  workflow-summary:
+    name: Workflow Summary
+    runs-on: ubuntu-latest
+    needs: [run-script, validate-data, commit-data]
+    if: always()
+
+    steps:
+      - name: Write summary report
+        run: |
+          echo "## Movie API Automation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Stage | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Fetch Movie Data | ${{ needs.run-script.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Validate Ingested Data | ${{ needs.validate-data.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit Updated Data | ${{ needs.commit-data.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Records in DB:** ${{ needs.run-script.outputs.rows_inserted }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Run triggered:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
