@@ -1,8 +1,8 @@
 import sqlite3
 from unittest.mock import patch, MagicMock
 
-
 # Fake API response helpers
+
 
 def make_movie(
     movie_id: int,
@@ -37,6 +37,7 @@ def failed_response() -> MagicMock:
 
 # Tests
 
+
 def test_main_inserts_valid_movies(tmp_path):
     """Valid movies from the API should be inserted into the database"""
     db_path = str(tmp_path / "movies.db")
@@ -44,9 +45,9 @@ def test_main_inserts_valid_movies(tmp_path):
 
     import get_top_movies
 
-    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), \
-            patch("get_top_movies.os.getenv", return_value="fake_api_key"), \
-            patch("get_top_movies.requests.get", return_value=fake_response(movies)):
+    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), patch(
+        "get_top_movies.os.getenv", return_value="fake_api_key"
+    ), patch("get_top_movies.requests.get", return_value=fake_response(movies)):
         get_top_movies.main()
 
     conn = sqlite3.connect(db_path)
@@ -70,9 +71,11 @@ def test_main_skips_invalid_movies(tmp_path):
 
     import get_top_movies
 
-    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), \
-            patch("get_top_movies.os.getenv", return_value="fake_api_key"), \
-            patch("get_top_movies.requests.get", return_value=fake_response([valid, invalid])):
+    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), patch(
+        "get_top_movies.os.getenv", return_value="fake_api_key"
+    ), patch(
+        "get_top_movies.requests.get", return_value=fake_response([valid, invalid])
+    ):
         get_top_movies.main()
 
     conn = sqlite3.connect(db_path)
@@ -88,8 +91,9 @@ def test_main_exits_early_without_api_key(tmp_path, capsys):
     """main() should print an error and return if TMDB_API_KEY is missing"""
     import get_top_movies
 
-    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), \
-            patch("get_top_movies.os.getenv", return_value=None):
+    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), patch(
+        "get_top_movies.os.getenv", return_value=None
+    ):
         get_top_movies.main()
 
     captured = capsys.readouterr()
@@ -102,9 +106,9 @@ def test_main_handles_failed_api_response(tmp_path):
 
     import get_top_movies
 
-    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), \
-            patch("get_top_movies.os.getenv", return_value="fake_api_key"), \
-            patch("get_top_movies.requests.get", return_value=failed_response()):
+    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), patch(
+        "get_top_movies.os.getenv", return_value="fake_api_key"
+    ), patch("get_top_movies.requests.get", return_value=failed_response()):
         get_top_movies.main()
 
     conn = sqlite3.connect(db_path)
@@ -119,9 +123,9 @@ def test_main_handles_empty_results(tmp_path):
 
     import get_top_movies
 
-    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), \
-            patch("get_top_movies.os.getenv", return_value="fake_api_key"), \
-            patch("get_top_movies.requests.get", return_value=fake_response([])):
+    with patch("get_top_movies.os.path.dirname", return_value=str(tmp_path)), patch(
+        "get_top_movies.os.getenv", return_value="fake_api_key"
+    ), patch("get_top_movies.requests.get", return_value=fake_response([])):
         get_top_movies.main()
 
     conn = sqlite3.connect(db_path)

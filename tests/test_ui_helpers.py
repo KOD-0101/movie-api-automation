@@ -1,31 +1,35 @@
 from unittest.mock import MagicMock
 
-
 # poster_url
+
 
 def test_poster_url_with_valid_path():
     from ui_helpers import poster_url
-    assert poster_url(
-        "/abc123.jpg") == "https://image.tmdb.org/t/p/w500/abc123.jpg"
+
+    assert poster_url("/abc123.jpg") == "https://image.tmdb.org/t/p/w500/abc123.jpg"
 
 
 def test_poster_url_with_none():
     from ui_helpers import poster_url
+
     assert poster_url(None) is None
 
 
 def test_poster_url_with_empty_string():
     from ui_helpers import poster_url
+
     assert poster_url("") is None
 
 
 def test_poster_url_path_without_leading_slash():
     from ui_helpers import poster_url
+
     result = poster_url("abc123.jpg")
     assert result == "https://image.tmdb.org/t/p/w500abc123.jpg"
 
 
 # initialize_session_state
+
 
 def test_initialize_session_state_sets_page(monkeypatch):
     """Should set page='home' if not already in session state"""
@@ -35,6 +39,7 @@ def test_initialize_session_state_sets_page(monkeypatch):
 
     import importlib
     import ui_helpers
+
     importlib.reload(ui_helpers)
 
     ui_helpers.initialize_session_state()
@@ -49,6 +54,7 @@ def test_initialize_session_state_sets_selected_movie_id(monkeypatch):
 
     import importlib
     import ui_helpers
+
     importlib.reload(ui_helpers)
 
     ui_helpers.initialize_session_state()
@@ -63,6 +69,7 @@ def test_initialize_session_state_does_not_overwrite(monkeypatch):
 
     import importlib
     import ui_helpers
+
     importlib.reload(ui_helpers)
 
     ui_helpers.initialize_session_state()
@@ -72,6 +79,7 @@ def test_initialize_session_state_does_not_overwrite(monkeypatch):
 
 # go_to_dashboard
 
+
 def test_go_to_dashboard_sets_page(monkeypatch):
     """go_to_dashboard should set session_state.page to 'dashboard'"""
     st_mock = MagicMock()
@@ -80,6 +88,7 @@ def test_go_to_dashboard_sets_page(monkeypatch):
 
     import importlib
     import ui_helpers
+
     importlib.reload(ui_helpers)
 
     ui_helpers.go_to_dashboard()

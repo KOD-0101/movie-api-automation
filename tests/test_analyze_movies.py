@@ -2,8 +2,8 @@ import sqlite3
 import pytest
 from unittest.mock import patch
 
-
 # Helpers
+
 
 def create_temp_db(path: str):
     conn = sqlite3.connect(path)
@@ -23,16 +23,38 @@ def create_temp_db(path: str):
     cursor.executemany(
         "INSERT INTO movies VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            (1, "2024-01-01", "Inception", 8.8,
-             25000, "2010-07-16", 55.3, "top_rated"),
-            (2, "2024-01-01", "The Dark Knight", 9.0,
-             30000, "2008-07-18", 80.1, "top_rated"),
-            (3, "2024-01-01", "Interstellar", 8.6,
-             20000, "2014-11-07", 45.2, "popular"),
-            (4, "2024-01-01", "Parasite", 8.5,
-             18000, "2019-05-30", 30.0, "popular"),
-            (5, "2024-01-01", "Everything Everywhere",
-             7.8, 15000, "2022-03-25", 20.5, "popular"),
+            (1, "2024-01-01", "Inception", 8.8, 25000, "2010-07-16", 55.3, "top_rated"),
+            (
+                2,
+                "2024-01-01",
+                "The Dark Knight",
+                9.0,
+                30000,
+                "2008-07-18",
+                80.1,
+                "top_rated",
+            ),
+            (
+                3,
+                "2024-01-01",
+                "Interstellar",
+                8.6,
+                20000,
+                "2014-11-07",
+                45.2,
+                "popular",
+            ),
+            (4, "2024-01-01", "Parasite", 8.5, 18000, "2019-05-30", 30.0, "popular"),
+            (
+                5,
+                "2024-01-01",
+                "Everything Everywhere",
+                7.8,
+                15000,
+                "2022-03-25",
+                20.5,
+                "popular",
+            ),
         ],
     )
     conn.commit()
@@ -41,6 +63,7 @@ def create_temp_db(path: str):
 
 # Tests
 
+
 def test_main_runs_without_error(tmp_path, capsys):
     """main() should complete without raising any exceptions"""
     db_path = str(tmp_path / "movies.db")
@@ -48,6 +71,7 @@ def test_main_runs_without_error(tmp_path, capsys):
 
     with patch("analyze_movies.DB_PATH", db_path):
         from analyze_movies import main
+
         main()
 
     captured = capsys.readouterr()
@@ -63,6 +87,7 @@ def test_main_outputs_top_rated_correctly(tmp_path, capsys):
 
     with patch("analyze_movies.DB_PATH", db_path):
         from analyze_movies import main
+
         main()
 
     captured = capsys.readouterr()
@@ -81,6 +106,7 @@ def test_main_outputs_average_rating(tmp_path, capsys):
 
     with patch("analyze_movies.DB_PATH", db_path):
         from analyze_movies import main
+
         main()
 
     captured = capsys.readouterr()
@@ -99,12 +125,12 @@ def test_main_outputs_most_popular(tmp_path, capsys):
 
     with patch("analyze_movies.DB_PATH", db_path):
         from analyze_movies import main
+
         main()
 
     captured = capsys.readouterr()
     popular_section = captured.out.split("Most Popular Movies:")[1]
-    assert "The Dark Knight" in popular_section.split(
-        "Average Movie Rating:")[0]
+    assert "The Dark Knight" in popular_section.split("Average Movie Rating:")[0]
 
 
 def test_main_raises_on_missing_db(tmp_path):
@@ -113,5 +139,6 @@ def test_main_raises_on_missing_db(tmp_path):
 
     with patch("analyze_movies.DB_PATH", missing_path):
         from analyze_movies import main
+
         with pytest.raises(Exception):
             main()

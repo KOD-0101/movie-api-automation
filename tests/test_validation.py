@@ -1,7 +1,7 @@
 from validation import is_valid_movie
 
-
 # Valid cases
+
 
 def test_valid_movie():
     movie = {
@@ -47,6 +47,7 @@ def test_valid_movie_zero_rating():
 
 # Missing / invalid ID
 
+
 def test_invalid_movie_missing_id():
     movie = {
         "title": "Inception",
@@ -74,6 +75,7 @@ def test_invalid_movie_id_zero():
 
 
 # Missing / invalid title
+
 
 def test_invalid_movie_missing_title():
     movie = {
@@ -115,6 +117,7 @@ def test_invalid_movie_numeric_title():
 
 # Missing / invalid rating
 
+
 def test_invalid_movie_missing_rating():
     movie = {
         "id": 1,
@@ -141,6 +144,7 @@ def test_invalid_movie_string_rating():
 
 
 # Missing / invalid vote count
+
 
 def test_invalid_movie_missing_votes():
     movie = {
@@ -170,6 +174,7 @@ def test_invalid_movie_float_votes():
 
 # Missing / invalid popularity
 
+
 def test_invalid_movie_missing_popularity():
     movie = {
         "id": 1,
@@ -196,6 +201,7 @@ def test_invalid_movie_string_popularity():
 
 
 # Invalid release date
+
 
 def test_invalid_movie_numeric_release_date():
     """release_date must be a string if provided"""
