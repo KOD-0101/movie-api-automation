@@ -13,15 +13,11 @@ def render_home_page():
 
     st.title("🎬 Movie Data Automation Project")
 
-    st.image(
-        "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4",
-        width=500
-    )
+    st.image("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4", width=500)
 
     st.markdown("---")
 
-    st.markdown(
-        """
+    st.markdown("""
         ### Welcome
 
         This application demonstrates a complete automated movie data workflow.
@@ -33,16 +29,14 @@ def render_home_page():
         - 📈 Interactive charts and dashboard insights
         - 🎭 Genre-based movie recommendations
         - 🎥 Movie summaries and details
-        """
-    )
+        """)
 
     st.markdown("---")
 
     col1, col2, col3 = st.columns([1, 2, 1])
 
     with col2:
-        st.button("🚀 Get Started", on_click=go_to_dashboard,
-                  use_container_width=True)
+        st.button("🚀 Get Started", on_click=go_to_dashboard, use_container_width=True)
 
     st.markdown("---")
     st.markdown("Built with Python, Streamlit, SQLite, and TMDB API")
@@ -64,31 +58,25 @@ def render_local_analytics():
 
         if search:
             logger.info(f"User searched local database for: {search}")
-            results = df[df["title"].str.contains(
-                search, case=False, na=False)]
+            results = df[df["title"].str.contains(search, case=False, na=False)]
             st.dataframe(results, use_container_width=True)
 
         col1, col2 = st.columns(2)
 
         with col1:
             st.subheader("⭐ Top Rated Movies")
-            top_movies = df.sort_values(
-                by="rating", ascending=False).head(10).copy()
+            top_movies = df.sort_values(by="rating", ascending=False).head(10).copy()
             top_movies["rating"] = top_movies["rating"].round(1)
             st.dataframe(
                 top_movies[["title", "rating", "release_date"]],
-                use_container_width=True
+                use_container_width=True,
             )
 
         with col2:
             st.subheader("🔥 Most Popular Movies")
-            popular = df.sort_values(
-                by="popularity", ascending=False).head(10).copy()
+            popular = df.sort_values(by="popularity", ascending=False).head(10).copy()
             popular["popularity"] = popular["popularity"].round(0).astype(int)
-            st.dataframe(
-                popular[["title", "popularity"]],
-                use_container_width=True
-            )
+            st.dataframe(popular[["title", "popularity"]], use_container_width=True)
 
         st.subheader("📊 Average Rating")
         st.write(round(df["rating"].mean(), 2))
@@ -105,8 +93,7 @@ def render_local_analytics():
 
         with chart_col2:
             st.subheader("📊 Top 10 Most Popular Movies")
-            top_popular = df.sort_values(
-                by="popularity", ascending=False).head(10)
+            top_popular = df.sort_values(by="popularity", ascending=False).head(10)
             fig2, ax2 = plt.subplots()
             ax2.barh(top_popular["title"], top_popular["popularity"])
             ax2.set_xlabel("Popularity Score")
@@ -126,7 +113,8 @@ def render_genre_recommendations():
 
     if not TMDB_API_KEY:
         logger.warning(
-            "TMDB live recommendation features unavailable due to missing API key")
+            "TMDB live recommendation features unavailable due to missing API key"
+        )
         st.warning("TMDB live recommendation features need a TMDB_API_KEY.")
         return
 
@@ -138,7 +126,7 @@ def render_genre_recommendations():
         selected_genre_name = st.selectbox(
             "Choose a genre",
             genre_names,
-            index=genre_names.index("Horror") if "Horror" in genre_names else 0
+            index=genre_names.index("Horror") if "Horror" in genre_names else 0,
         )
 
         logger.info(f"Selected genre: {selected_genre_name}")
@@ -175,8 +163,7 @@ def render_genre_recommendations():
 
                 if st.button("View Details", key=f"movie_{movie['id']}"):
                     st.session_state.selected_movie_id = movie["id"]
-                    logger.info(
-                        f"Selected movie details for movie_id={movie['id']}")
+                    logger.info(f"Selected movie details for movie_id={movie['id']}")
 
         if st.session_state.selected_movie_id:
             details = get_movie_details(st.session_state.selected_movie_id)
@@ -193,13 +180,10 @@ def render_genre_recommendations():
 
             with detail_col2:
                 st.subheader(details.get("title", "Unknown Title"))
-                st.markdown(
-                    f"**Release Date:** {details.get('release_date', 'N/A')}")
-                st.markdown(
-                    f"**Rating:** {details.get('vote_average', 'N/A')}")
+                st.markdown(f"**Release Date:** {details.get('release_date', 'N/A')}")
+                st.markdown(f"**Rating:** {details.get('vote_average', 'N/A')}")
                 st.markdown(f"**Votes:** {details.get('vote_count', 'N/A')}")
-                st.markdown(
-                    f"**Popularity:** {details.get('popularity', 'N/A')}")
+                st.markdown(f"**Popularity:** {details.get('popularity', 'N/A')}")
 
                 runtime = details.get("runtime")
                 if runtime:

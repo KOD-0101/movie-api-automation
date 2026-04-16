@@ -8,7 +8,7 @@ def test_valid_movie():
         "vote_average": 8.8,
         "vote_count": 12000,
         "popularity": 55.3,
-        "release_date": "2010-07-16"
+        "release_date": "2010-07-16",
     }
 
     valid, reason = is_valid_movie(movie)
@@ -22,7 +22,7 @@ def test_invalid_movie_missing_id():
         "vote_average": 8.8,
         "vote_count": 12000,
         "popularity": 55.3,
-        "release_date": "2010-07-16"
+        "release_date": "2010-07-16",
     }
 
     valid, reason = is_valid_movie(movie)
@@ -36,7 +36,7 @@ def test_invalid_movie_missing_title():
         "vote_average": 8.8,
         "vote_count": 12000,
         "popularity": 55.3,
-        "release_date": "2010-07-16"
+        "release_date": "2010-07-16",
     }
 
     valid, reason = is_valid_movie(movie)

@@ -54,7 +54,7 @@ def main():
         "top_rated": "movie/top_rated",
         "popular": "movie/popular",
         "now_playing": "movie/now_playing",
-        "upcoming": "movie/upcoming"
+        "upcoming": "movie/upcoming",
     }
 
     pages_to_fetch = 5
@@ -64,7 +64,9 @@ def main():
 
     for category, endpoint in endpoints.items():
         for page in range(1, pages_to_fetch + 1):
-            url = f"https://api.themoviedb.org/3/{endpoint}?api_key={API_KEY}&page={page}"
+            url = (
+                f"https://api.themoviedb.org/3/{endpoint}?api_key={API_KEY}&page={page}"
+            )
             logger.info(f"Fetching category={category}, page={page}")
 
             response = requests.get(url)
@@ -85,20 +87,23 @@ def main():
                     logger.warning(f"Skipped movie record: {reason}")
                     continue
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                 INSERT OR IGNORE INTO movies
                 (movie_id, date, title, rating, votes, release_date, popularity, category)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    movie.get("id"),
-                    today,
-                    movie.get("title"),
-                    movie.get("vote_average"),
-                    movie.get("vote_count"),
-                    movie.get("release_date"),
-                    movie.get("popularity"),
-                    category
-                ))
+                """,
+                    (
+                        movie.get("id"),
+                        today,
+                        movie.get("title"),
+                        movie.get("vote_average"),
+                        movie.get("vote_count"),
+                        movie.get("release_date"),
+                        movie.get("popularity"),
+                        category,
+                    ),
+                )
 
                 total_inserted += 1
 

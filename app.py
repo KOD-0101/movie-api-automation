@@ -5,10 +5,7 @@ from dashboard import render_home_page, render_dashboard_page
 
 logger = get_logger("app")
 
-st.set_page_config(
-    page_title="Movie Data Automation Project",
-    layout="wide"
-)
+st.set_page_config(page_title="Movie Data Automation Project", layout="wide")
 
 logger.info("App started")
 initialize_session_state()
