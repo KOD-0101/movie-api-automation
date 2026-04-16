@@ -1,11 +1,9 @@
 import sqlite3
-import os
-import pytest
 import pandas as pd
 from unittest.mock import patch
 
 
-# ── Helpers ──────────────────────────────────────────────────────────────────
+# Helpers
 
 def create_temp_db(path: str):
     """Create a minimal movies DB at the given path with sample data."""
@@ -26,16 +24,19 @@ def create_temp_db(path: str):
     cursor.executemany(
         "INSERT INTO movies VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            (1, "2024-01-01", "Inception", 8.8, 25000, "2010-07-16", 55.3, "top_rated"),
-            (2, "2024-01-01", "The Dark Knight", 9.0, 30000, "2008-07-18", 80.1, "top_rated"),
-            (3, "2024-01-01", "Interstellar", 8.6, 20000, "2014-11-07", 45.2, "popular"),
+            (1, "2024-01-01", "Inception", 8.8,
+             25000, "2010-07-16", 55.3, "top_rated"),
+            (2, "2024-01-01", "The Dark Knight", 9.0,
+             30000, "2008-07-18", 80.1, "top_rated"),
+            (3, "2024-01-01", "Interstellar", 8.6,
+             20000, "2014-11-07", 45.2, "popular"),
         ],
     )
     conn.commit()
     conn.close()
 
 
-# ── Tests ─────────────────────────────────────────────────────────────────────
+# Tests
 
 def test_get_local_data_returns_dataframe(tmp_path):
     """get_local_data should return a DataFrame with all rows"""
@@ -59,7 +60,8 @@ def test_get_local_data_has_expected_columns(tmp_path):
         from database import get_local_data
         df = get_local_data()
 
-    expected_columns = {"movie_id", "title", "rating", "popularity", "category"}
+    expected_columns = {"movie_id", "title",
+                        "rating", "popularity", "category"}
     assert expected_columns.issubset(set(df.columns))
 
 
