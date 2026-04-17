@@ -1,106 +1,51 @@
-Title,Rating,Release Date
-The Shawshank Redemption,8.7,1994-09-23
-The Godfather,8.687,1972-03-14
-The Godfather Part II,8.571,1974-12-20
-Schindler's List,8.566,1993-12-15
-12 Angry Men,8.555,1957-04-10
-2026-03-12,The Shawshank Redemption,8.716,29897,1994-09-23,45.6702
-2026-03-12,The Godfather,8.688,22576,1972-03-14,57.807
-2026-03-12,The Godfather Part II,8.572,13672,1974-12-20,23.2441
-2026-03-12,Schindler's List,8.566,17195,1993-12-15,23.3249
-2026-03-12,12 Angry Men,8.555,9809,1957-04-10,21.5927
-2026-03-12,¿Quieres ser mi hijo?,8.543,301,2023-09-21,7.0202
-2026-03-12,Spirited Away,8.534,18049,2001-07-20,33.0523
-2026-03-12,The Dark Knight,8.527,35311,2008-07-16,36.2033
-2026-03-12,Dilwale Dulhania Le Jayenge,8.517,4565,1995-10-20,15.7935
-2026-03-12,The Green Mile,8.505,18940,1999-12-10,23.2023
-2026-03-12,The Lord of the Rings: The Return of the King,8.494,26147,2003-12-17,29.581
-2026-03-12,Parasite,8.493,20252,2019-05-30,31.3477
-2026-03-12,Pulp Fiction,8.486,29814,1994-09-10,28.5574
-2026-03-12,Your Name.,8.478,12343,2016-08-26,25.8791
-2026-03-12,Interstellar,8.468,39088,2014-11-05,56.9993
-2026-03-12,"The Good, the Bad and the Ugly",8.5,9477,1966-12-23,22.1065
-2026-03-12,Forrest Gump,8.463,29358,1994-06-23,27.7644
-2026-03-12,GoodFellas,8.453,14095,1990-09-12,26.3338
-2026-03-12,Seven Samurai,8.5,4136,1954-04-26,11.201
-2026-03-12,Grave of the Fireflies,8.444,6398,1988-04-16,0.012
-2026-03-12,Life Is Beautiful,8.44,13842,1997-12-20,14.6386
-2026-03-12,Harakiri,8.4,1175,1962-09-15,6.4821
-2026-03-12,Fight Club,8.438,31589,1999-10-15,24.9321
-2026-03-12,City of God,8.427,8049,2002-08-30,10.3591
-2026-03-12,The Lord of the Rings: The Fellowship of the Ring,8.428,27133,2001-12-18,26.3537
-2026-03-12,Cinema Paradiso,8.423,4752,1988-11-17,7.6537
-2026-03-12,A Dog's Will,8.42,1208,2000-09-15,3.7039
-2026-03-12,Impossible Things,8.415,420,2021-06-17,2.5331
-2026-03-12,Psycho,8.415,10855,1960-06-22,13.9669
-2026-03-12,The Lord of the Rings: The Two Towers,8.4,23540,2002-12-18,18.1004
-2026-03-12,One Flew Over the Cuckoo's Nest,8.412,11266,1975-11-19,9.6283
-2026-03-12,Hope,8.4,825,2013-10-02,5.7855
-2026-03-12,Gabriel's Inferno,8.393,2445,2020-05-29,2.9405
-2026-03-12,Spider-Man: Into the Spider-Verse,8.394,16948,2018-12-06,19.8476
-2026-03-12,The Empire Strikes Back,8.392,18148,1980-05-20,8.9115
-2026-03-12,Howl's Moving Castle,8.387,10881,2004-09-09,23.822
-2026-03-12,Once Upon a Time in America,8.384,5931,1984-05-23,11.1378
-2026-03-12,A Silent Voice: The Movie,8.383,4387,2016-09-17,14.8379
-2026-03-12,Se7en,8.379,22744,1995-09-22,21.7778
-2026-03-12,The Pianist,8.374,9972,2002-09-17,13.54
-2026-03-12,Whiplash,8.374,16381,2014-10-10,18.1316
-2026-03-12,Gabriel's Inferno: Part II,8.367,1537,2020-07-31,10.3134
-2026-03-12,Inception,8.37,38827,2010-07-15,36.0639
-2026-03-12,Gabriel's Inferno: Part III,8.362,1073,2020-11-19,2.9918
-2026-03-12,Lucy Shimmers and the Prince of Peace,8.36,349,2020-10-19,6.0177
-2026-03-12,High and Low,8.351,1092,1963-03-01,5.5131
-2026-03-12,The Silence of the Lambs,8.346,17675,1991-02-14,4.5234
-2026-03-12,Rear Window,8.341,7048,1954-08-01,7.4256
-2026-03-12,Radical,8.3,491,2023-10-19,6.1869
-2026-03-12,Spider-Man: Across the Spider-Verse,8.333,8333,2023-05-31,20.7834
-2026-03-12,Chainsaw Man - The Movie: Reze Arc,8.33,746,2025-09-19,37.9651
-2026-03-12,American History X,8.327,12383,1998-07-01,10.14
-2026-03-12,Princess Mononoke,8.3,8823,1997-07-12,15.5879
-2026-03-12,Back to the Future,8.324,21473,1985-07-03,18.6579
-2026-03-12,The Wild Robot,8.31,5796,2024-09-12,19.1906
-2026-03-12,Ikiru,8.306,1312,1952-10-09,6.0087
-2026-03-12,Dou kyu sei – Classmates,8.3,427,2016-02-20,5.5365
-2026-03-12,The Legend of Hei,8.301,447,2019-08-27,7.4075
-2026-03-12,Perfect Blue,8.299,3089,1998-02-28,11.0878
-2026-03-12,Dead Poets Society,8.301,12359,1989-06-02,13.6055
-2026-03-12,The Quintessential Quintuplets Movie,8.3,431,2022-05-20,5.0514
-2026-03-12,Violet Evergarden: The Movie,8.295,491,2020-09-18,9.526
-2026-03-12,Léon: The Professional,8.295,15860,1994-09-14,19.8748
-2026-03-12,We All Loved Each Other So Much,8.289,633,1974-12-21,2.1459
-2026-03-12,Dedicated to my ex,8.3,513,2019-11-01,1.9642
-2026-03-12,The Great Dictator,8.283,3641,1940-10-15,5.142
-2026-03-12,Modern Times,8.279,4017,1936-02-05,5.3643
-2026-03-12,Sunset Boulevard,8.279,2876,1950-08-10,8.2483
-2026-03-12,Once Upon a Time in the West,8.279,4801,1968-12-21,14.5974
-2026-03-12,It's a Wonderful Life,8.277,4813,1946-12-20,6.724
-2026-03-12,Once Upon a Studio,8.3,418,2023-09-24,6.5502
-2026-03-12,A Brighter Summer Day,8.3,376,1991-07-27,4.6637
-2026-03-12,The Intouchables,8.27,18217,2011-11-02,14.3524
-2026-03-12,Apocalypse Now,8.268,8936,1979-05-19,13.9148
-2026-03-12,"Josee, the Tiger and the Fish",8.266,573,2020-12-25,9.5142
-2026-03-12,Neon Genesis Evangelion: The End of Evangelion,8.3,1805,1997-07-19,8.9084
-2026-03-12,Counterattack,8.258,794,2025-02-27,12.7415
-2026-03-12,Le Trou,8.253,557,1960-03-18,6.762
-2026-03-12,Paths of Glory,8.255,3220,1957-10-25,5.3292
-2026-03-12,City Lights,8.254,2409,1931-02-06,5.4059
-2026-03-12,Rascal Does Not Dream of a Dreaming Girl,8.256,577,2019-06-15,9.1404
-2026-03-12,Given,8.3,413,2020-08-22,4.589
-2026-03-12,Miracle in Cell No. 7,8.3,4535,2019-10-10,7.7686
-2026-03-12,The Lion King,8.3,19454,1994-06-15,17.4593
-2026-03-12,Hotarubi no Mori e,8.251,1204,2011-09-17,0.0086
-2026-03-12,Out of the Clear Blue Sky,8.25,376,2019-12-24,11.6917
-2026-03-12,The Legend of 1900,8.241,2413,1998-10-28,4.8071
-2026-03-12,Clouds,8.239,1045,2020-10-09,6.8998
-2026-03-12,Life in a Year,8.236,1951,2020-11-27,3.9955
-2026-03-12,The Matrix,8.239,27496,1999-03-31,25.393
-2026-03-12,Oldboy,8.239,9639,2003-11-21,15.0121
-2026-03-12,Avengers: Endgame,8.235,27354,2019-04-24,19.4335
-2026-03-12,Avengers: Infinity War,8.234,31585,2018-04-25,28.6041
-2026-03-12,I Want to Eat Your Pancreas,8.222,1733,2018-09-01,5.7726
-2026-03-12,Klaus,8.222,4577,2019-11-08,7.3883
-2026-03-12,Green Book,8.223,12658,2018-11-16,13.6744
-2026-03-12,Saving Private Ryan,8.222,16949,1998-07-24,16.6326
-2026-03-12,Gladiator,8.222,20597,2000-05-04,16.6624
-2026-03-12,The Forge,8.2,323,2024-08-22,5.1359
-2026-03-12,Five Feet Apart,8.22,5872,2019-03-14,6.4951
+title,rating,popularity,category,release_date
+The Sin Trade,9.0,9.2304,now_playing,2026-04-10
+The Shawshank Redemption,8.718,40.6598,top_rated,1994-09-23
+The Shawshank Redemption,8.718,40.6598,popular,1994-09-23
+The Shawshank Redemption,8.718,40.6598,now_playing,1994-09-23
+The Godfather,8.687,36.0283,top_rated,1972-03-14
+The Godfather,8.687,36.0283,popular,1972-03-14
+Schindler's List,8.6,24.2449,top_rated,1993-12-15
+The Godfather Part II,8.572,21.681,top_rated,1974-12-20
+12 Angry Men,8.56,16.3126,top_rated,1957-04-10
+The Dark Knight,8.528,31.585,top_rated,2008-07-16
+The Dark Knight,8.528,31.585,popular,2008-07-16
+¿Quieres ser mi hijo?,8.527,10.8702,top_rated,2023-09-21
+The Green Mile,8.504,26.231,top_rated,1999-12-10
+Spirited Away,8.5,29.0058,top_rated,2001-07-20
+Dilwale Dulhania Le Jayenge,8.5,13.1411,top_rated,1995-10-20
+"The Good, the Bad and the Ugly",8.5,18.6221,top_rated,1966-12-23
+The Legend of Hei 2,8.5,12.1964,upcoming,2025-07-18
+The Lord of the Rings: The Return of the King,8.496,27.3093,top_rated,2003-12-17
+Parasite,8.494,32.0159,top_rated,2019-05-30
+Parasite,8.494,32.0159,popular,2019-05-30
+Cosmic Princess Kaguya!,8.493,13.8115,now_playing,2026-01-22
+Pulp Fiction,8.486,29.1727,top_rated,1994-09-10
+Your Name.,8.478,25.9702,top_rated,2016-08-26
+Your Name.,8.478,25.9702,now_playing,2016-08-26
+Interstellar,8.47,55.8552,top_rated,2014-11-05
+Interstellar,8.47,55.8552,popular,2014-11-05
+Forrest Gump,8.464,25.3095,top_rated,1994-06-23
+GoodFellas,8.453,21.4789,top_rated,1990-09-12
+Seven Samurai,8.453,14.6114,top_rated,1954-04-26
+Grave of the Fireflies,8.444,0.0138,top_rated,1988-04-16
+Life Is Beautiful,8.44,11.9615,top_rated,1997-12-20
+Fight Club,8.439,24.6476,top_rated,1999-10-15
+Fight Club,8.439,24.6476,now_playing,1999-10-15
+Fight Club,8.439,24.6476,upcoming,1999-10-15
+Harakiri,8.438,10.1302,top_rated,1962-09-15
+The Lord of the Rings: The Fellowship of the Ring,8.432,28.7399,top_rated,2001-12-18
+City of God,8.43,11.7028,top_rated,2002-08-30
+Cinema Paradiso,8.426,10.437,top_rated,1988-11-17
+A Dog's Will,8.419,4.9651,top_rated,2000-09-15
+Psycho,8.415,16.0333,top_rated,1960-06-22
+The Lord of the Rings: The Two Towers,8.415,18.8345,top_rated,2002-12-18
+Impossible Things,8.4,4.2295,top_rated,2021-06-17
+One Flew Over the Cuckoo's Nest,8.4,12.927,top_rated,1975-11-19
+Whiplash,8.4,19.6981,top_rated,2014-10-10
+Lucy Shimmers and the Prince of Peace,8.4,6.4574,top_rated,2020-10-19
+Gabriel's Inferno: Part II,8.4,3.3629,top_rated,2020-07-31
+Hope,8.394,8.908,top_rated,2013-10-02
+Spider-Man: Into the Spider-Verse,8.393,33.5553,top_rated,2018-12-06
+The Empire Strikes Back,8.393,11.9203,top_rated,1980-05-20
+Howl's Moving Castle,8.388,21.1224,top_rated,2004-09-09
