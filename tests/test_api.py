@@ -8,7 +8,7 @@ def mock_streamlit():
     """Return a MagicMock that stands in for the streamlit module."""
     st = MagicMock()
     st.secrets = {}
-    st.cache_data = lambda **kwargs: (lambda f: f)  # passthrough decorator
+    st.cache_data = lambda **kwargs: (lambda f: f)
     return st
 
 
