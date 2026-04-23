@@ -29,7 +29,6 @@ def main():
     cursor = conn.cursor()
 
     cursor.execute("DROP TABLE IF EXISTS movies")
-
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS movies (
         movie_id INTEGER,
