@@ -1,6 +1,12 @@
 # movie-api-automation
 
-A fully automated movie data pipeline with a Streamlit dashboard, built to demonstrate a complete dev workflow, from code quality checks to data validation and deployment.
+A fully automated movie data pipeline with a Streamlit dashboard, built to demonstrate a complete dev workflow — from code quality checks to data validation and deployment.
+
+## 🚀 Live Application
+
+**[https://movie-api-automation-4gufjmxzzo2vdhdy4jcwaz.streamlit.app/](https://movie-api-automation-4gufjmxzzo2vdhdy4jcwaz.streamlit.app/)**
+
+The application is deployed on Streamlit Community Cloud and updated daily by the automated data workflow.
 
 ---
 
@@ -47,24 +53,20 @@ movie-api-automation/
 Runs on every push and pull request across `main`, `dev`, `feature/**`, and `hotfix/**` branches.
 
 ```
-Lint & Format Check
+Lint & Format Check (ruff + black)
     ↓
-Basic Checks & Unit Tests
+Basic Checks & Unit Tests (imports, compile, pytest + coverage)
     ↓
 Dev Validation (dev branch)  /  Production Check (main branch)
     ↓
-Pipeline Summary
+Pipeline Summary (always runs)
 ```
 
-**Lint & Format Check** — runs `ruff` for style errors and `black --check` for formatting. Fails fast if either finds issues, blocking everything downstream.
-
-**Basic Checks & Unit Tests** — verifies all imports resolve, all scripts compile, and runs the full test suite with coverage reporting. Requires a minimum of 50% coverage to pass (currently sitting at ~92%).
-
-**Dev Validation** — runs on the `dev` branch only. Checks the database schema has all expected columns, validates data integrity (rating ranges, null checks, category count), and confirms all dashboard modules load correctly.
-
-**Production Check** — runs on `main` only. Stricter version of the above — requires at least 10 records in the DB, validates all module exports with smoke tests, and checks that dependencies are pinned.
-
-**Pipeline Summary** — always runs regardless of other results, writes a markdown summary table to the GitHub Actions job summary.
+- **Lint & Format Check** — fails fast if code style or formatting issues are found
+- **Basic Checks & Unit Tests** — runs 55 tests with 93.63% coverage, enforces 50% minimum threshold
+- **Dev Validation** — schema check, data integrity check, module structure validation
+- **Production Check** — stricter validation including minimum record count and smoke tests
+- **Pipeline Summary** — writes a markdown summary table to the GitHub Actions job summary
 
 ---
 
@@ -73,22 +75,14 @@ Pipeline Summary
 Runs daily at 12:00 UTC, or manually via `workflow_dispatch`.
 
 ```
-Fetch Movie Data
+Fetch Movie Data (runs get_top_movies.py, checks DB is not empty)
     ↓
-Validate Ingested Data
+Validate Ingested Data (schema, integrity, CSV export)
     ↓
-Commit Updated Data
+Commit Updated Data (timestamped commit back to repo)
     ↓
-Workflow Summary
+Workflow Summary (reports stage results and record count)
 ```
-
-**Fetch Movie Data** — runs `get_top_movies.py`, which pulls from four TMDB endpoints (`top_rated`, `popular`, `now_playing`, `upcoming`) across 5 pages each. Each record goes through `validation.py` before being inserted. Fails immediately if the DB ends up empty.
-
-**Validate Ingested Data** — checks the schema, runs integrity checks (nulls, rating ranges, category coverage), and exports a fresh `top_movies.csv` with the top 50 rated movies.
-
-**Commit Updated Data** — commits `movies.db` and `top_movies.csv` back to the repo with a timestamped commit message.
-
-**Workflow Summary** — reports the result of each stage and the total row count to the GitHub Actions summary tab.
 
 ---
 
@@ -109,7 +103,7 @@ Create a `.env` file in the root directory:
 ```
 TMDB_API_KEY=your_key_here
 ```
-You can get a free API key at [themoviedb.org](https://www.themoviedb.org/settings/api).
+Get a free API key at [themoviedb.org](https://www.themoviedb.org/settings/api).
 
 **3. Fetch movie data:**
 ```bash
@@ -137,3 +131,12 @@ pytest --cov=. --cov-report=term-missing
 - **GitHub Actions** — CI/CD and scheduled automation
 - **pytest + pytest-cov** — testing and coverage
 - **ruff + black** — linting and formatting
+
+---
+
+## Results
+
+- ✅ 55 tests passing
+- ✅ 93.63% test coverage
+- ✅ Daily scheduled data refresh
+- ✅ Live deployment on Streamlit Community Cloud
