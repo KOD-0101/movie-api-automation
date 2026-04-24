@@ -11,13 +11,21 @@ logger = get_logger("get_top_movies")
 
 
 def main():
+    """
+    Fetches movie data from four TMDB endpoints and stores it in the
+    local SQLite database. Runs as a standalone script and is also
+    called by the GitHub Actions data workflow on a daily schedule.
+    """
     API_KEY = os.getenv("TMDB_API_KEY")
 
+    # Exit early if no key is available, no point continuing
     if not API_KEY:
         logger.error("API key not found")
         print("Error: API key not found.")
         return
 
+    # Record today's date so each batch of records can be traced
+    # back to the day it was fetched
     today = datetime.today().strftime("%Y-%m-%d")
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -28,6 +36,8 @@ def main():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
+    # Drop and recreate the table on every run so the database always
+    # reflects the latest API response rather than accumulating stale data
     cursor.execute("DROP TABLE IF EXISTS movies")
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS movies (
@@ -42,6 +52,8 @@ def main():
     )
     """)
 
+    # Unique index on (movie_id, date, category) prevents duplicate
+    # records if the same movie appears in multiple API pages
     cursor.execute("""
     CREATE UNIQUE INDEX IF NOT EXISTS idx_movies_unique
     ON movies (movie_id, date, category)
@@ -49,6 +61,8 @@ def main():
 
     logger.info("Database connection established and table checked")
 
+    # The four TMDB endpoints we pull from, each gives a different
+    # slice of the movie catalogue
     endpoints = {
         "top_rated": "movie/top_rated",
         "popular": "movie/popular",
@@ -56,6 +70,7 @@ def main():
         "upcoming": "movie/upcoming",
     }
 
+    # 5 pages per endpoint = up to 100 records per category, 400 total
     pages_to_fetch = 5
 
     total_inserted = 0
@@ -70,6 +85,7 @@ def main():
 
             response = requests.get(url)
 
+            # Skip this page and move on if the API returns an error
             if response.status_code != 200:
                 logger.warning(
                     f"API request failed for {category}, page {page}: {response.status_code}"
@@ -79,6 +95,8 @@ def main():
             data = response.json()
 
             for movie in data.get("results", []):
+                # Run each record through the validation module before inserting,
+                # anything that fails gets counted as skipped, not inserted
                 valid, reason = is_valid_movie(movie)
 
                 if not valid:
@@ -86,6 +104,8 @@ def main():
                     logger.warning(f"Skipped movie record: {reason}")
                     continue
 
+                # INSERT OR IGNORE means duplicates are silently skipped
+                # thanks to the unique index defined above
                 cursor.execute(
                     """
                 INSERT OR IGNORE INTO movies
