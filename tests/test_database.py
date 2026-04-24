@@ -2,11 +2,16 @@ import sqlite3
 import pandas as pd
 from unittest.mock import patch
 
+
 # Helpers
 
 
 def create_temp_db(path: str):
-    """Create a minimal movies DB at the given path with sample data."""
+    """
+    Builds a small test database at the given path.
+    Used in every test so each one starts with a clean, known state.
+    pytest's tmp_path fixture handles cleanup after each test run.
+    """
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
     cursor.execute("""
@@ -55,13 +60,13 @@ def create_temp_db(path: str):
 
 
 def test_get_local_data_returns_dataframe(tmp_path):
-    """get_local_data should return a DataFrame with all rows"""
+    # The function should return a DataFrame, not a list or dict
     db_path = str(tmp_path / "movies.db")
     create_temp_db(db_path)
 
+    # Patch DB_PATH so the function reads from our temp DB, not movies.db
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
-
         df = get_local_data()
 
     assert isinstance(df, pd.DataFrame)
@@ -69,13 +74,12 @@ def test_get_local_data_returns_dataframe(tmp_path):
 
 
 def test_get_local_data_has_expected_columns(tmp_path):
-    """DataFrame should contain the core movie columns"""
+    # Check the key columns are all present in the returned DataFrame
     db_path = str(tmp_path / "movies.db")
     create_temp_db(db_path)
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
-
         df = get_local_data()
 
     expected_columns = {"movie_id", "title", "rating", "popularity", "category"}
@@ -83,13 +87,12 @@ def test_get_local_data_has_expected_columns(tmp_path):
 
 
 def test_get_local_data_correct_values(tmp_path):
-    """Data returned should match what was inserted"""
+    # The data coming back should match what was inserted
     db_path = str(tmp_path / "movies.db")
     create_temp_db(db_path)
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
-
         df = get_local_data()
 
     titles = set(df["title"].tolist())
@@ -98,20 +101,19 @@ def test_get_local_data_correct_values(tmp_path):
 
 
 def test_get_local_data_ratings_in_range(tmp_path):
-    """All ratings should be between 0 and 10"""
+    # All ratings should fall between 0 and 10 — catches schema issues
     db_path = str(tmp_path / "movies.db")
     create_temp_db(db_path)
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
-
         df = get_local_data()
 
     assert df["rating"].between(0, 10).all()
 
 
 def test_get_local_data_empty_table(tmp_path):
-    """Should return an empty DataFrame if the table has no rows"""
+    # An empty table should return an empty DataFrame, not raise an error
     db_path = str(tmp_path / "movies.db")
     conn = sqlite3.connect(db_path)
     conn.execute("""
@@ -125,7 +127,6 @@ def test_get_local_data_empty_table(tmp_path):
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
-
         df = get_local_data()
 
     assert isinstance(df, pd.DataFrame)

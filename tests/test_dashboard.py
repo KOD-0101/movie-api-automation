@@ -1,13 +1,18 @@
 from unittest.mock import patch, MagicMock
 import pandas as pd
 
+
 # Streamlit mock factory
 
 
 def make_st_mock():
     """
-    Build a MagicMock that covers every st.* call used in dashboard.py.
-    cache_data is a passthrough decorator so @st.cache_data functions still run.
+    Builds a MagicMock that covers every st.* call made in dashboard.py.
+    The key things to get right:
+    - cache_data needs to be a passthrough decorator so cached functions run
+    - columns needs to return a list of the right length (3 for the home page,
+      2 for the analytics section)
+    - session_state needs selected_movie_id set to avoid AttributeError
     """
     st = MagicMock()
     st.cache_data = lambda **kwargs: (lambda f: f)
@@ -19,6 +24,7 @@ def make_st_mock():
 
 
 def sample_df() -> pd.DataFrame:
+    """Returns a small DataFrame shaped like the real movies table."""
     return pd.DataFrame(
         [
             {
@@ -53,13 +59,12 @@ def sample_df() -> pd.DataFrame:
 
 
 def test_render_home_page_runs(monkeypatch):
-    """render_home_page should run without raising any exceptions"""
+    # Home page should render without raising any exceptions
     st_mock = make_st_mock()
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     dashboard.render_home_page()
@@ -67,13 +72,12 @@ def test_render_home_page_runs(monkeypatch):
 
 
 def test_render_home_page_calls_title(monkeypatch):
-    """render_home_page should call st.title with the app name"""
+    # The page title should contain the word "Movie"
     st_mock = make_st_mock()
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     dashboard.render_home_page()
@@ -86,21 +90,22 @@ def test_render_home_page_calls_title(monkeypatch):
 
 
 def test_render_local_analytics_with_data(monkeypatch):
-    """render_local_analytics should display data without errors when DB has rows"""
+    # When the database has rows, no warning should be shown
     st_mock = make_st_mock()
     st_mock.text_input.return_value = ""
+    # analytics section uses 2-column layout, not 3
     st_mock.columns.return_value = [MagicMock(), MagicMock()]
 
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
-    with patch("dashboard.get_local_data", return_value=sample_df()), patch(
-        "dashboard.plt"
-    ) as mock_plt:
+    # Patch get_local_data so no real DB is needed,
+    # patch plt so no actual matplotlib figures are created
+    with patch("dashboard.get_local_data", return_value=sample_df()), \
+         patch("dashboard.plt") as mock_plt:
         mock_plt.subplots.return_value = (MagicMock(), MagicMock())
         dashboard.render_local_analytics()
 
@@ -108,13 +113,12 @@ def test_render_local_analytics_with_data(monkeypatch):
 
 
 def test_render_local_analytics_empty_db(monkeypatch):
-    """render_local_analytics should show a warning if the DB is empty"""
+    # An empty DataFrame should trigger st.warning and return early
     st_mock = make_st_mock()
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     with patch("dashboard.get_local_data", return_value=pd.DataFrame()):
@@ -124,7 +128,7 @@ def test_render_local_analytics_empty_db(monkeypatch):
 
 
 def test_render_local_analytics_search(monkeypatch):
-    """Searching for a movie title should not raise errors"""
+    # Searching for a title should filter the dataframe and call st.dataframe
     st_mock = make_st_mock()
     st_mock.text_input.return_value = "Inception"
     st_mock.columns.return_value = [MagicMock(), MagicMock()]
@@ -133,12 +137,10 @@ def test_render_local_analytics_search(monkeypatch):
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
-    with patch("dashboard.get_local_data", return_value=sample_df()), patch(
-        "dashboard.plt"
-    ) as mock_plt:
+    with patch("dashboard.get_local_data", return_value=sample_df()), \
+         patch("dashboard.plt") as mock_plt:
         mock_plt.subplots.return_value = (MagicMock(), MagicMock())
         dashboard.render_local_analytics()
 
@@ -149,13 +151,13 @@ def test_render_local_analytics_search(monkeypatch):
 
 
 def test_render_genre_recommendations_no_api_key(monkeypatch):
-    """Should show a warning if TMDB_API_KEY is missing"""
+    # If TMDB_API_KEY is not set, a warning should be shown and
+    # the function should return without making any API calls
     st_mock = make_st_mock()
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     with patch("dashboard.TMDB_API_KEY", None):
@@ -165,7 +167,7 @@ def test_render_genre_recommendations_no_api_key(monkeypatch):
 
 
 def test_render_genre_recommendations_with_genres(monkeypatch):
-    """Should render genre selectbox when API key is present and genres load"""
+    # When genres load successfully, the genre selectbox should be rendered
     st_mock = make_st_mock()
     st_mock.selectbox.return_value = "Horror"
     st_mock.columns.return_value = [MagicMock(), MagicMock(), MagicMock()]
@@ -175,7 +177,6 @@ def test_render_genre_recommendations_with_genres(monkeypatch):
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     fake_genres = [{"id": 27, "name": "Horror"}, {"id": 28, "name": "Action"}]
@@ -189,16 +190,16 @@ def test_render_genre_recommendations_with_genres(monkeypatch):
         }
     ] * 3
 
-    with patch("dashboard.TMDB_API_KEY", "fake_key"), patch(
-        "dashboard.get_genres", return_value=fake_genres
-    ), patch("dashboard.get_movies_by_genre", return_value=fake_movies):
+    with patch("dashboard.TMDB_API_KEY", "fake_key"), \
+         patch("dashboard.get_genres", return_value=fake_genres), \
+         patch("dashboard.get_movies_by_genre", return_value=fake_movies):
         dashboard.render_genre_recommendations()
 
     st_mock.selectbox.assert_called_once()
 
 
 def test_render_genre_recommendations_no_movies(monkeypatch):
-    """Should show info message if genre returns no movies"""
+    # If the genre returns no movies, st.info should be shown
     st_mock = make_st_mock()
     st_mock.selectbox.return_value = "Horror"
     st_mock.session_state.selected_movie_id = None
@@ -207,14 +208,13 @@ def test_render_genre_recommendations_no_movies(monkeypatch):
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
     fake_genres = [{"id": 27, "name": "Horror"}]
 
-    with patch("dashboard.TMDB_API_KEY", "fake_key"), patch(
-        "dashboard.get_genres", return_value=fake_genres
-    ), patch("dashboard.get_movies_by_genre", return_value=[]):
+    with patch("dashboard.TMDB_API_KEY", "fake_key"), \
+         patch("dashboard.get_genres", return_value=fake_genres), \
+         patch("dashboard.get_movies_by_genre", return_value=[]):
         dashboard.render_genre_recommendations()
 
     st_mock.info.assert_called_once()
@@ -224,18 +224,16 @@ def test_render_genre_recommendations_no_movies(monkeypatch):
 
 
 def test_render_dashboard_page_runs(monkeypatch):
-    """render_dashboard_page should call both sub-renderers without error"""
+    # render_dashboard_page should call both sub-renderers exactly once
     st_mock = make_st_mock()
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import importlib
     import dashboard
-
     importlib.reload(dashboard)
 
-    with patch("dashboard.render_local_analytics") as mock_local, patch(
-        "dashboard.render_genre_recommendations"
-    ) as mock_genre:
+    with patch("dashboard.render_local_analytics") as mock_local, \
+         patch("dashboard.render_genre_recommendations") as mock_genre:
         dashboard.render_dashboard_page()
 
     mock_local.assert_called_once()

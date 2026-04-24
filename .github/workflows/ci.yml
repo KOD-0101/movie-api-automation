@@ -1,5 +1,8 @@
 name: CI Checks
 
+# Triggers: runs on every push to dev, feature/*, hotfix/*, and main branches,
+# and on pull requests targeting dev or main. Can also be triggered manually
+# from the GitHub Actions tab via workflow_dispatch.
 on:
   push:
     branches:
@@ -15,7 +18,10 @@ on:
 
 jobs:
 
-  # - Stage 1: Code Quality 
+  # - Stage 1: Code Quality
+  # Runs first, if formatting or style is broken, nothing else runs.
+  # Fast-fail design: a lint error stops the pipeline in under 10 seconds
+  # rather than wasting time running tests on badly formatted code.
   lint:
     name: Lint & Format Check
     runs-on: ubuntu-latest
@@ -32,13 +38,21 @@ jobs:
       - name: Install linting tools
         run: pip install ruff black
 
+      # ruff checks for unused imports, undefined names, and style issues.
+      # --output-format=github formats errors as GitHub annotations so they
+      # appear inline in the PR diff view.
       - name: Run Ruff (style & error checks)
         run: ruff check . --output-format=github
 
+      # black --check doesn't modify any files — it just exits with code 1
+      # if anything would be reformatted, which fails the step.
       - name: Run Black (formatting check)
         run: black --check .
 
-  # - Stage 2: Core Checks & Tests 
+  # - Stage 2: Core Checks & Tests
+  # Only runs if lint passes (needs: lint).
+  # Installs all dependencies, verifies every module imports and compiles,
+  # then runs the full test suite with coverage enforcement.
   basic-checks:
     name: Basic Checks & Unit Tests
     runs-on: ubuntu-latest
@@ -56,11 +70,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Quick sanity check that all third-party and local imports resolve
+      # before running anything more expensive
       - name: Verify imports
         run: |
           python -c "import requests, pandas, streamlit, matplotlib, pytest"
           python -c "import api, database, ui_helpers, dashboard, validation, logger_setup"
 
+      # py_compile catches syntax errors without executing the module
       - name: Check app entry point
         run: python -m py_compile app.py
 
@@ -75,18 +92,26 @@ jobs:
           python -m py_compile validation.py
           python -m py_compile logger_setup.py
 
+      # --cov-fail-under=50 means the step fails if total coverage drops
+      # below 50%. In practice we're at 93%+ but the threshold acts as a
+      # hard floor to stop coverage regressing silently over time.
       - name: Run unit tests with coverage
         run: |
           pip install pytest-cov
           python -m pytest --cov=. --cov-report=term-missing --cov-fail-under=50
 
+      # Save the .coverage file as a downloadable artifact so it can be
+      # inspected after the run if needed
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: .coverage
 
-  # - Stage 3a: Dev Branch Validation 
+  # - Stage 3a: Dev Branch Validation
+  # Only runs on the dev branch or PRs targeting dev.
+  # Checks that the dashboard modules load correctly and that the committed
+  # movies.db has the right schema and contains valid data.
   dev-validation:
     name: Dev Validation
     if: github.ref == 'refs/heads/dev' || github.base_ref == 'dev'
@@ -105,12 +130,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Confirms the key functions in each module are importable,
+      # catches renamed or deleted exports before they reach main
       - name: Validate dashboard module structure
         run: |
           python -c "from ui_helpers import initialize_session_state, go_to_dashboard, poster_url"
           python -c "from database import get_local_data"
           python -c "from dashboard import render_home_page, render_dashboard_page"
 
+      # PRAGMA table_info returns one row per column, we extract the names
+      # and compare against the expected set. Any missing column fails the step.
       - name: Validate database schema
         run: |
           python - <<'EOF'
@@ -136,6 +165,8 @@ jobs:
           print(f"Schema valid. Columns found: {columns}")
           EOF
 
+      # Checks record count, null titles, and out-of-range ratings.
+      # Any failure exits with code 1 which fails the CI step.
       - name: Validate data integrity
         run: |
           python - <<'EOF'
@@ -171,7 +202,10 @@ jobs:
           print("Data integrity check passed")
           EOF
 
-  # - Stage 3b: Production Validation 
+  # - Stage 3b: Production Validation
+  # Only runs on main or PRs targeting main, stricter than dev validation.
+  # Requires at least 10 records, validates module exports with smoke tests,
+  # and warns about unpinned dependencies.
   production-check:
     name: Production Check
     if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
@@ -190,6 +224,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Stricter version of the dev schema check, also requires a minimum
+      # record count and checks category diversity
       - name: Full schema & integrity validation
         run: |
           python - <<'EOF'
@@ -227,6 +263,8 @@ jobs:
           print(f"Production DB validated: {count} records across {categories} categories")
           EOF
 
+      # Smoke tests: imports and calls each exported function with known-good
+      # inputs to confirm nothing is broken at the module boundary level
       - name: Validate all module exports
         run: |
           python - <<'EOF'
@@ -235,20 +273,20 @@ jobs:
           from database import get_local_data
           from logger_setup import get_logger
 
-          # Smoke-test validation logic
           result, reason = is_valid_movie({
               "id": 1, "title": "Test", "vote_average": 7.5,
               "vote_count": 100, "popularity": 20.0, "release_date": "2024-01-01"
           })
           assert result is True, f"Validation smoke test failed: {reason}"
 
-          # Smoke-test URL helper
           url = poster_url("/test.jpg")
           assert url == "https://image.tmdb.org/t/p/w500/test.jpg", "poster_url failed"
 
           print("All module export checks passed")
           EOF
 
+      # Warns if any dependency in requirements.txt is not pinned to a specific
+      # version, unpinned deps can cause silent breakage when packages update
       - name: Confirm requirements are pinned
         run: |
           python - <<'EOF'
@@ -264,7 +302,10 @@ jobs:
               print("All dependencies are pinned.")
           EOF
 
-  # - Stage 4: Pipeline Summary 
+  # - Stage 4: Pipeline Summary
+  # Always runs regardless of whether earlier stages passed or failed (if: always()).
+  # Writes a markdown table to the GitHub Actions job summary tab so the
+  # overall result is visible at a glance without opening individual job logs.
   pipeline-summary:
     name: Pipeline Summary
     runs-on: ubuntu-latest

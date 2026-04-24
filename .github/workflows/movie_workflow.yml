@@ -1,20 +1,31 @@
 name: Movie API Automation
 
+# Runs daily at 12:00 UTC via cron schedule.
+# Can also be triggered manually from the GitHub Actions tab
+# using workflow_dispatch — useful for testing or forcing a refresh.
 on:
   schedule:
     - cron: "0 12 * * *"
   workflow_dispatch:
 
+# Write access is needed so the commit stage can push movies.db
+# and top_movies.csv back to the repository
 permissions:
   contents: write
 
 jobs:
 
   # - Stage 1: Fetch & Store Movie Data
+  # Runs get_top_movies.py against the live TMDB API using the key stored
+  # in GitHub Secrets. After the script completes, counts the rows in the DB
+  # and exposes the count as an output for the summary stage to use.
+  # Fails immediately if the resulting database is empty, catches silent
+  # API failures where the script completes without error but returns nothing.
   run-script:
     name: Fetch Movie Data
     runs-on: ubuntu-latest
 
+    # Expose the row count so the summary stage can report it
     outputs:
       rows_inserted: ${{ steps.fetch.outputs.rows_inserted }}
 
@@ -40,6 +51,8 @@ jobs:
           echo "rows_inserted=$COUNT" >> $GITHUB_OUTPUT
           echo "Rows in DB after ingestion: $COUNT"
 
+      # Guard against silent failures, if the table is empty something
+      # went wrong with the API call and we should not proceed to commit
       - name: Fail if database is empty
         run: |
           python - <<'EOF'
@@ -53,13 +66,18 @@ jobs:
           print(f"Ingestion check passed: {count} records present")
           EOF
 
+      # Save movies.db as a downloadable artifact for this run.
+      # Useful for auditing what data looked like on a specific day.
       - name: Upload database as artifact
         uses: actions/upload-artifact@v4
         with:
           name: movies-db-${{ github.run_id }}
           path: movies.db
 
-  # - Stage 2: Validate Ingested Data 
+  # - Stage 2: Validate Ingested Data
+  # Only runs if fetch succeeded (needs: run-script).
+  # Checks schema, data integrity, and exports the top 50 movies to CSV.
+  # Nothing gets committed until this stage passes.
   validate-data:
     name: Validate Ingested Data
     runs-on: ubuntu-latest
@@ -77,6 +95,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Confirms all 8 expected columns are present in the movies table
       - name: Schema validation
         run: |
           python - <<'EOF'
@@ -98,6 +117,8 @@ jobs:
           print(f"Schema valid. Columns: {columns}")
           EOF
 
+      # Checks for null titles, invalid ratings, null IDs, and
+      # ensures at least 2 categories are present in the data
       - name: Data integrity checks
         run: |
           python - <<'EOF'
@@ -146,6 +167,8 @@ jobs:
           print("All integrity checks passed")
           EOF
 
+      # Writes the top 50 movies by rating to top_movies.csv
+      # This file gets committed alongside movies.db in the next stage
       - name: Export CSV summary
         run: |
           python - <<'EOF'
@@ -172,7 +195,11 @@ jobs:
           print(f"Exported {len(rows)} rows to top_movies.csv")
           EOF
 
-  # - Stage 3: Commit Updated Data 
+  # - Stage 3: Commit Updated Data
+  # Only runs if validation passed (needs: validate-data).
+  # Re-runs the ingestion script in this job because jobs run on separate
+  # VMs and the database from Stage 1 is not carried over automatically.
+  # Commits movies.db and top_movies.csv back to the repo with a timestamp.
   commit-data:
     name: Commit Updated Data
     runs-on: ubuntu-latest
@@ -190,6 +217,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Re-run ingestion here because the DB from Stage 1 doesn't carry
+      # over between jobs, each job runs on a fresh VM instance
       - name: Re-run ingestion to get fresh data in this job
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
@@ -216,6 +245,8 @@ jobs:
           print(f"CSV ready: {len(rows)} rows")
           EOF
 
+      # 'git commit ... || echo "No changes"' prevents the step from failing
+      # if the data hasn't changed since the last run
       - name: Commit updated files
         run: |
           git config --global user.name "github-actions"
@@ -225,6 +256,9 @@ jobs:
           git push
 
   # - Stage 4: Workflow Summary
+  # Always runs regardless of whether earlier stages passed or failed.
+  # Writes a markdown table to the GitHub Actions summary tab showing
+  # the result of each stage and the total record count from Stage 1.
   workflow-summary:
     name: Workflow Summary
     runs-on: ubuntu-latest

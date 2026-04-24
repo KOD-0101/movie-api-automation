@@ -4,6 +4,7 @@ from validation import is_valid_movie
 
 
 def test_valid_movie():
+    # A fully populated record with all required fields should pass
     movie = {
         "id": 1,
         "title": "Inception",
@@ -18,7 +19,7 @@ def test_valid_movie():
 
 
 def test_valid_movie_without_release_date():
-    """release_date is optional — None should still be valid"""
+    # release_date is optional, omitting it entirely should still pass
     movie = {
         "id": 2,
         "title": "No Date Movie",
@@ -33,7 +34,7 @@ def test_valid_movie_without_release_date():
 
 
 def test_valid_movie_zero_rating():
-    """A rating of exactly 0 is valid"""
+    # A rating of exactly 0 is a valid value, not a missing one
     movie = {
         "id": 3,
         "title": "Zero Rated",
@@ -49,6 +50,7 @@ def test_valid_movie_zero_rating():
 
 
 def test_invalid_movie_missing_id():
+    # No id key at all
     movie = {
         "title": "Inception",
         "vote_average": 8.8,
@@ -61,7 +63,7 @@ def test_invalid_movie_missing_id():
 
 
 def test_invalid_movie_id_zero():
-    """id=0 is falsy — should be treated as missing"""
+    # id=0 is falsy in Python so it should be treated the same as missing
     movie = {
         "id": 0,
         "title": "Inception",
@@ -78,6 +80,7 @@ def test_invalid_movie_id_zero():
 
 
 def test_invalid_movie_missing_title():
+    # No title key
     movie = {
         "id": 1,
         "vote_average": 8.8,
@@ -90,6 +93,7 @@ def test_invalid_movie_missing_title():
 
 
 def test_invalid_movie_empty_title():
+    # Empty string should be caught, same as no title
     movie = {
         "id": 1,
         "title": "",
@@ -103,6 +107,7 @@ def test_invalid_movie_empty_title():
 
 
 def test_invalid_movie_numeric_title():
+    # An integer where a string is expected
     movie = {
         "id": 1,
         "title": 12345,
@@ -131,6 +136,7 @@ def test_invalid_movie_missing_rating():
 
 
 def test_invalid_movie_string_rating():
+    # "high" is not a number, should fail the isinstance check
     movie = {
         "id": 1,
         "title": "Inception",
@@ -159,7 +165,8 @@ def test_invalid_movie_missing_votes():
 
 
 def test_invalid_movie_float_votes():
-    """vote_count must be an int, not a float"""
+    # vote_count must be an int, 100.5 is technically a number but the
+    # wrong type for a count field
     movie = {
         "id": 1,
         "title": "Inception",
@@ -172,7 +179,7 @@ def test_invalid_movie_float_votes():
     assert reason == "Missing or invalid vote count"
 
 
-# Missing / invalid popularity
+# Missing / invalid popularity 
 
 
 def test_invalid_movie_missing_popularity():
@@ -204,7 +211,7 @@ def test_invalid_movie_string_popularity():
 
 
 def test_invalid_movie_numeric_release_date():
-    """release_date must be a string if provided"""
+    # release_date must be a string if it's present at all
     movie = {
         "id": 1,
         "title": "Inception",
