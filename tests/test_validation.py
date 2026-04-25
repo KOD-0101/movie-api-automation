@@ -179,7 +179,7 @@ def test_invalid_movie_float_votes():
     assert reason == "Missing or invalid vote count"
 
 
-# Missing / invalid popularity 
+# Missing / invalid popularity
 
 
 def test_invalid_movie_missing_popularity():

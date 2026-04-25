@@ -1,7 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
 
-
 # Helpers
 
 
@@ -39,6 +38,7 @@ def test_tmdb_get_returns_json(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
@@ -59,6 +59,7 @@ def test_tmdb_get_raises_without_api_key(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = None
@@ -75,6 +76,7 @@ def test_tmdb_get_calls_correct_url(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
@@ -96,6 +98,7 @@ def test_get_genres_returns_list(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
@@ -103,8 +106,7 @@ def test_get_genres_returns_list(monkeypatch):
     fake_genres = [{"id": 28, "name": "Action"}, {"id": 27, "name": "Horror"}]
 
     with patch(
-        "api.requests.get",
-        return_value=fake_requests_response({"genres": fake_genres})
+        "api.requests.get", return_value=fake_requests_response({"genres": fake_genres})
     ):
         result = api.get_genres()
 
@@ -121,6 +123,7 @@ def test_get_genres_returns_empty_list_on_missing_key(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
@@ -142,6 +145,7 @@ def test_get_movies_by_genre_returns_movies(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
@@ -162,13 +166,13 @@ def test_get_movies_by_genre_empty_results(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"
 
     with patch(
-        "api.requests.get",
-        return_value=fake_requests_response({"results": []})
+        "api.requests.get", return_value=fake_requests_response({"results": []})
     ):
         result = api.get_movies_by_genre(27, pages=1)
 
@@ -185,6 +189,7 @@ def test_get_movie_details_returns_dict(monkeypatch):
 
     import importlib
     import api
+
     importlib.reload(api)
 
     api.TMDB_API_KEY = "fake_key"

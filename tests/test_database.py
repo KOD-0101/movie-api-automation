@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 from unittest.mock import patch
 
-
 # Helpers
 
 
@@ -67,6 +66,7 @@ def test_get_local_data_returns_dataframe(tmp_path):
     # Patch DB_PATH so the function reads from our temp DB, not movies.db
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
+
         df = get_local_data()
 
     assert isinstance(df, pd.DataFrame)
@@ -80,6 +80,7 @@ def test_get_local_data_has_expected_columns(tmp_path):
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
+
         df = get_local_data()
 
     expected_columns = {"movie_id", "title", "rating", "popularity", "category"}
@@ -93,6 +94,7 @@ def test_get_local_data_correct_values(tmp_path):
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
+
         df = get_local_data()
 
     titles = set(df["title"].tolist())
@@ -107,6 +109,7 @@ def test_get_local_data_ratings_in_range(tmp_path):
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
+
         df = get_local_data()
 
     assert df["rating"].between(0, 10).all()
@@ -127,6 +130,7 @@ def test_get_local_data_empty_table(tmp_path):
 
     with patch("database.DB_PATH", db_path):
         from database import get_local_data
+
         df = get_local_data()
 
     assert isinstance(df, pd.DataFrame)

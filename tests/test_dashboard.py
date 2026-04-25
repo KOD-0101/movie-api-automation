@@ -1,7 +1,6 @@
 from unittest.mock import patch, MagicMock
 import pandas as pd
 
-
 # Streamlit mock factory
 
 
@@ -65,6 +64,7 @@ def test_render_home_page_runs(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     dashboard.render_home_page()
@@ -78,6 +78,7 @@ def test_render_home_page_calls_title(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     dashboard.render_home_page()
@@ -100,12 +101,14 @@ def test_render_local_analytics_with_data(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     # Patch get_local_data so no real DB is needed,
     # patch plt so no actual matplotlib figures are created
-    with patch("dashboard.get_local_data", return_value=sample_df()), \
-         patch("dashboard.plt") as mock_plt:
+    with patch("dashboard.get_local_data", return_value=sample_df()), patch(
+        "dashboard.plt"
+    ) as mock_plt:
         mock_plt.subplots.return_value = (MagicMock(), MagicMock())
         dashboard.render_local_analytics()
 
@@ -119,6 +122,7 @@ def test_render_local_analytics_empty_db(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     with patch("dashboard.get_local_data", return_value=pd.DataFrame()):
@@ -137,10 +141,12 @@ def test_render_local_analytics_search(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
-    with patch("dashboard.get_local_data", return_value=sample_df()), \
-         patch("dashboard.plt") as mock_plt:
+    with patch("dashboard.get_local_data", return_value=sample_df()), patch(
+        "dashboard.plt"
+    ) as mock_plt:
         mock_plt.subplots.return_value = (MagicMock(), MagicMock())
         dashboard.render_local_analytics()
 
@@ -158,6 +164,7 @@ def test_render_genre_recommendations_no_api_key(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     with patch("dashboard.TMDB_API_KEY", None):
@@ -177,6 +184,7 @@ def test_render_genre_recommendations_with_genres(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     fake_genres = [{"id": 27, "name": "Horror"}, {"id": 28, "name": "Action"}]
@@ -190,9 +198,9 @@ def test_render_genre_recommendations_with_genres(monkeypatch):
         }
     ] * 3
 
-    with patch("dashboard.TMDB_API_KEY", "fake_key"), \
-         patch("dashboard.get_genres", return_value=fake_genres), \
-         patch("dashboard.get_movies_by_genre", return_value=fake_movies):
+    with patch("dashboard.TMDB_API_KEY", "fake_key"), patch(
+        "dashboard.get_genres", return_value=fake_genres
+    ), patch("dashboard.get_movies_by_genre", return_value=fake_movies):
         dashboard.render_genre_recommendations()
 
     st_mock.selectbox.assert_called_once()
@@ -208,13 +216,14 @@ def test_render_genre_recommendations_no_movies(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
     fake_genres = [{"id": 27, "name": "Horror"}]
 
-    with patch("dashboard.TMDB_API_KEY", "fake_key"), \
-         patch("dashboard.get_genres", return_value=fake_genres), \
-         patch("dashboard.get_movies_by_genre", return_value=[]):
+    with patch("dashboard.TMDB_API_KEY", "fake_key"), patch(
+        "dashboard.get_genres", return_value=fake_genres
+    ), patch("dashboard.get_movies_by_genre", return_value=[]):
         dashboard.render_genre_recommendations()
 
     st_mock.info.assert_called_once()
@@ -230,10 +239,12 @@ def test_render_dashboard_page_runs(monkeypatch):
 
     import importlib
     import dashboard
+
     importlib.reload(dashboard)
 
-    with patch("dashboard.render_local_analytics") as mock_local, \
-         patch("dashboard.render_genre_recommendations") as mock_genre:
+    with patch("dashboard.render_local_analytics") as mock_local, patch(
+        "dashboard.render_genre_recommendations"
+    ) as mock_genre:
         dashboard.render_dashboard_page()
 
     mock_local.assert_called_once()

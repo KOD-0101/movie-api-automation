@@ -1,7 +1,6 @@
 from unittest.mock import MagicMock
 import importlib
 
-
 # Helper: session_state mock
 
 
@@ -45,18 +44,21 @@ class FakeSessionState:
 def test_poster_url_with_valid_path():
     # A path starting with / should be appended directly to the base URL
     from ui_helpers import poster_url
+
     assert poster_url("/abc123.jpg") == "https://image.tmdb.org/t/p/w500/abc123.jpg"
 
 
 def test_poster_url_with_none():
     # None means TMDB didn't return a poster, should get None back
     from ui_helpers import poster_url
+
     assert poster_url(None) is None
 
 
 def test_poster_url_with_empty_string():
     # Empty string is treated the same as None
     from ui_helpers import poster_url
+
     assert poster_url("") is None
 
 
@@ -64,6 +66,7 @@ def test_poster_url_path_without_leading_slash():
     # No slash means the URL won't have a separator, this is expected behaviour,
     # not a bug we're trying to prevent
     from ui_helpers import poster_url
+
     result = poster_url("abc123.jpg")
     assert result == "https://image.tmdb.org/t/p/w500abc123.jpg"
 
@@ -78,6 +81,7 @@ def test_initialize_session_state_sets_page(monkeypatch):
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import ui_helpers
+
     importlib.reload(ui_helpers)
     ui_helpers.initialize_session_state()
 
@@ -91,6 +95,7 @@ def test_initialize_session_state_sets_selected_movie_id(monkeypatch):
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import ui_helpers
+
     importlib.reload(ui_helpers)
     ui_helpers.initialize_session_state()
 
@@ -107,6 +112,7 @@ def test_initialize_session_state_does_not_overwrite(monkeypatch):
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import ui_helpers
+
     importlib.reload(ui_helpers)
     ui_helpers.initialize_session_state()
 
@@ -126,6 +132,7 @@ def test_go_to_dashboard_sets_page(monkeypatch):
     monkeypatch.setitem(__import__("sys").modules, "streamlit", st_mock)
 
     import ui_helpers
+
     importlib.reload(ui_helpers)
     ui_helpers.go_to_dashboard()
 
