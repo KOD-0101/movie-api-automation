@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Blind Sky,10.0,40.7808,popular,1998-03-12
-Bonolota Express,9.2,10.4859,now_playing,2026-03-21
-Clemente,9.0,38.1124,popular,2025-09-11
-The Shawshank Redemption,8.719,48.9641,top_rated,1994-09-23
-The Shawshank Redemption,8.719,48.9641,popular,1994-09-23
-The Godfather,8.686,41.0055,top_rated,1972-03-14
-The Godfather Part II,8.571,27.12,top_rated,1974-12-20
-Schindler's List,8.567,28.585,top_rated,1993-12-15
-12 Angry Men,8.559,20.7919,top_rated,1957-04-10
-Spirited Away,8.533,36.2641,top_rated,2001-07-20
-The Dark Knight,8.529,36.4299,top_rated,2008-07-16
-Dilwale Dulhania Le Jayenge,8.513,17.144,top_rated,1995-10-20
-The Green Mile,8.504,27.4587,top_rated,1999-12-10
-Interstellar,8.5,72.6512,top_rated,2014-11-05
-Interstellar,8.5,72.6512,popular,2014-11-05
-The Legend of Hei 2,8.5,16.9785,now_playing,2025-07-18
-The Lord of the Rings: The Return of the King,8.496,44.1893,top_rated,2003-12-17
-The Lord of the Rings: The Return of the King,8.496,44.1893,popular,2003-12-17
-Parasite,8.494,37.5939,top_rated,2019-05-30
-Pulp Fiction,8.484,32.2894,top_rated,1994-09-10
-Your Name.,8.476,27.0307,top_rated,2016-08-26
-"The Good, the Bad and the Ugly",8.468,21.1322,top_rated,1966-12-23
-Forrest Gump,8.464,30.1888,top_rated,1994-06-23
-GoodFellas,8.453,25.3415,top_rated,1990-09-12
-Seven Samurai,8.449,29.7742,top_rated,1954-04-26
-¿Quieres ser mi hijo?,8.444,13.5586,top_rated,2023-09-21
-Grave of the Fireflies,8.441,0.0171,top_rated,1988-04-16
-Life Is Beautiful,8.439,13.775,top_rated,1997-12-20
-Fight Club,8.438,29.2507,top_rated,1999-10-15
-¿Quieres ser mi novia?,8.438,83.9661,popular,2026-02-12
-Fight Club,8.438,29.2507,now_playing,1999-10-15
-Harakiri,8.432,12.9399,top_rated,1962-09-15
-The Lord of the Rings: The Fellowship of the Ring,8.432,41.5909,top_rated,2001-12-18
-The Lord of the Rings: The Fellowship of the Ring,8.432,41.5909,popular,2001-12-18
-City of God,8.43,14.1294,top_rated,2002-08-30
-Cinema Paradiso,8.426,11.2731,top_rated,1988-11-17
-The Lord of the Rings: The Two Towers,8.416,23.0049,top_rated,2002-12-18
-Psycho,8.414,18.2874,top_rated,1960-06-22
-One Flew Over the Cuckoo's Nest,8.412,15.6273,top_rated,1975-11-19
-A Dog's Will,8.41,5.5241,top_rated,2000-09-15
-Impossible Things,8.395,4.8429,top_rated,2021-06-17
-Spider-Man: Into the Spider-Verse,8.393,23.2931,top_rated,2018-12-06
-The Empire Strikes Back,8.392,12.3788,top_rated,1980-05-20
-Howl's Moving Castle,8.386,24.3689,top_rated,2004-09-09
-A Silent Voice: The Movie,8.385,12.2752,top_rated,2016-09-17
-Gabriel's Inferno,8.383,5.0267,top_rated,2020-05-29
-Hope,8.383,11.2271,top_rated,2013-10-02
-Once Upon a Time in America,8.383,13.8028,top_rated,1984-05-23
-Se7en,8.38,24.1065,top_rated,1995-09-22
-Whiplash,8.374,23.1316,top_rated,2014-10-10
+Blind Sky,10.0,28.4846,popular,1998-03-12
+Swapped,8.9,103.1987,now_playing,2026-05-01
+Swapped,8.8,103.1987,popular,2026-05-01
+The Shawshank Redemption,8.719,47.5407,top_rated,1994-09-23
+The Shawshank Redemption,8.719,47.5407,popular,1994-09-23
+The Godfather,8.686,40.9519,top_rated,1972-03-14
+The Godfather,8.686,40.9519,popular,1972-03-14
+The Godfather Part II,8.6,27.6269,top_rated,1974-12-20
+Schindler's List,8.568,27.2192,top_rated,1993-12-15
+12 Angry Men,8.559,20.0825,top_rated,1957-04-10
+Spirited Away,8.534,35.7217,top_rated,2001-07-20
+The Dark Knight,8.528,35.0435,top_rated,2008-07-16
+The Green Mile,8.504,26.861,top_rated,1999-12-10
+Dilwale Dulhania Le Jayenge,8.5,16.2816,top_rated,1995-10-20
+The Legend of Hei 2,8.5,14.3503,now_playing,2025-07-18
+MOBILE SUIT GUNDAM HATHAWAY The Sorcery of Nymph Circe,8.5,3.4404,upcoming,2026-01-30
+The Lord of the Rings: The Return of the King,8.496,42.0225,top_rated,2003-12-17
+The Lord of the Rings: The Return of the King,8.496,42.0225,popular,2003-12-17
+Parasite,8.494,35.4783,top_rated,2019-05-30
+Pulp Fiction,8.484,32.0471,top_rated,1994-09-10
+Your Name.,8.476,27.3038,top_rated,2016-08-26
+Interstellar,8.471,69.5719,top_rated,2014-11-05
+Interstellar,8.471,69.5719,popular,2014-11-05
+"The Good, the Bad and the Ugly",8.469,21.7382,top_rated,1966-12-23
+Forrest Gump,8.464,31.7845,top_rated,1994-06-23
+GoodFellas,8.453,24.8341,top_rated,1990-09-12
+Seven Samurai,8.449,27.2916,top_rated,1954-04-26
+¿Quieres ser mi hijo?,8.443,12.4544,top_rated,2023-09-21
+Grave of the Fireflies,8.441,0.0175,top_rated,1988-04-16
+Life Is Beautiful,8.439,12.1277,top_rated,1997-12-20
+¿Quieres ser mi novia?,8.438,76.2159,popular,2026-02-12
+Fight Club,8.437,28.5283,top_rated,1999-10-15
+Fight Club,8.437,28.5283,now_playing,1999-10-15
+The Lord of the Rings: The Fellowship of the Ring,8.432,41.5717,top_rated,2001-12-18
+The Lord of the Rings: The Fellowship of the Ring,8.432,41.5717,popular,2001-12-18
+City of God,8.43,15.2409,top_rated,2002-08-30
+Harakiri,8.428,12.2272,top_rated,1962-09-15
+Cinema Paradiso,8.426,11.431,top_rated,1988-11-17
+The Lord of the Rings: The Two Towers,8.416,23.1634,top_rated,2002-12-18
+Psycho,8.414,17.4962,top_rated,1960-06-22
+One Flew Over the Cuckoo's Nest,8.412,14.864,top_rated,1975-11-19
+A Dog's Will,8.41,5.0818,top_rated,2000-09-15
+The Empire Strikes Back,8.4,13.6259,top_rated,1980-05-20
+Whiplash,8.4,23.4335,top_rated,2014-10-10
+Impossible Things,8.395,4.1635,top_rated,2021-06-17
+Spider-Man: Into the Spider-Verse,8.392,24.0016,top_rated,2018-12-06
+Hope,8.386,11.7002,top_rated,2013-10-02
+Howl's Moving Castle,8.386,24.2245,top_rated,2004-09-09
+A Silent Voice: The Movie,8.385,13.3641,top_rated,2016-09-17
+Once Upon a Time in America,8.383,13.5316,top_rated,1984-05-23
