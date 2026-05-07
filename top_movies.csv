@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-The Shawshank Redemption,8.7,45.3972,top_rated,1994-09-23
-The Shawshank Redemption,8.7,45.3972,popular,1994-09-23
-The Godfather,8.687,39.826,top_rated,1972-03-14
-The Godfather,8.686,39.826,popular,1972-03-14
-The Godfather Part II,8.6,25.4991,top_rated,1974-12-20
-Schindler's List,8.568,26.7589,top_rated,1993-12-15
-12 Angry Men,8.56,21.1745,top_rated,1957-04-10
-Spirited Away,8.534,31.5911,top_rated,2001-07-20
-The Legend of Hei 2,8.509,12.5957,now_playing,2025-07-18
-The Green Mile,8.504,29.9755,top_rated,1999-12-10
-The Dark Knight,8.5,36.4405,top_rated,2008-07-16
-Dilwale Dulhania Le Jayenge,8.5,15.882,top_rated,1995-10-20
-"The Good, the Bad and the Ugly",8.5,22.0791,top_rated,1966-12-23
-The Dark Knight,8.5,36.4405,popular,2008-07-16
-MOBILE SUIT GUNDAM HATHAWAY The Sorcery of Nymph Circe,8.5,3.6778,upcoming,2026-01-30
-The Lord of the Rings: The Return of the King,8.496,34.369,top_rated,2003-12-17
-Parasite,8.494,34.3699,top_rated,2019-05-30
-Pulp Fiction,8.484,32.9839,top_rated,1994-09-10
-Your Name.,8.475,25.8838,top_rated,2016-08-26
-Interstellar,8.471,53.5716,top_rated,2014-11-05
-Interstellar,8.471,53.5716,popular,2014-11-05
-Forrest Gump,8.464,30.1915,top_rated,1994-06-23
-GoodFellas,8.453,28.8808,top_rated,1990-09-12
-Grave of the Fireflies,8.441,0.0137,top_rated,1988-04-16
-Fight Club,8.437,28.637,top_rated,1999-10-15
-The Lord of the Rings: The Fellowship of the Ring,8.433,28.5895,top_rated,2001-12-18
-City of God,8.43,13.9259,top_rated,2002-08-30
-Harakiri,8.429,9.8919,top_rated,1962-09-15
-The Lord of the Rings: The Two Towers,8.416,21.6429,top_rated,2002-12-18
-Psycho,8.415,15.014,top_rated,1960-06-22
-One Flew Over the Cuckoo's Nest,8.412,11.9217,top_rated,1975-11-19
-A Dog's Will,8.41,4.7221,top_rated,2000-09-15
-Seven Samurai,8.4,19.6303,top_rated,1954-04-26
-¿Quieres ser mi hijo?,8.4,13.7708,top_rated,2023-09-21
-Life Is Beautiful,8.4,12.8436,top_rated,1997-12-20
-Cinema Paradiso,8.4,9.166,top_rated,1988-11-17
-The Empire Strikes Back,8.4,13.4261,top_rated,1980-05-20
-Se7en,8.4,22.5803,top_rated,1995-09-22
-The Pianist,8.4,11.294,top_rated,2002-09-17
-Fight Club,8.4,28.637,now_playing,1999-10-15
-Impossible Things,8.395,4.0062,top_rated,2021-06-17
-Spider-Man: Into the Spider-Verse,8.393,20.853,top_rated,2018-12-06
-Hope,8.388,9.9754,top_rated,2013-10-02
-Howl's Moving Castle,8.386,21.3118,top_rated,2004-09-09
-A Silent Voice: The Movie,8.385,12.5041,top_rated,2016-09-17
-Once Upon a Time in America,8.383,11.9642,top_rated,1984-05-23
-Gabriel's Inferno,8.38,4.1304,top_rated,2020-05-29
-Whiplash,8.374,20.5288,top_rated,2014-10-10
-Inception,8.372,30.1681,top_rated,2010-07-15
-Lucy Shimmers and the Prince of Peace,8.367,5.6367,top_rated,2020-10-19
+The Shawshank Redemption,8.719,46.1914,top_rated,1994-09-23
+The Shawshank Redemption,8.7,46.1914,popular,1994-09-23
+The Godfather,8.686,37.8357,top_rated,1972-03-14
+The Godfather,8.686,37.8357,popular,1972-03-14
+12 Angry Men,8.6,20.386,top_rated,1957-04-10
+The Godfather Part II,8.571,23.8405,top_rated,1974-12-20
+Schindler's List,8.568,24.6252,top_rated,1993-12-15
+The Dark Knight,8.529,33.4265,top_rated,2008-07-16
+The Legend of Hei 2,8.509,11.398,now_playing,2025-07-18
+The Green Mile,8.504,25.6642,top_rated,1999-12-10
+Spirited Away,8.5,27.8474,top_rated,2001-07-20
+Dilwale Dulhania Le Jayenge,8.5,14.1833,top_rated,1995-10-20
+"The Good, the Bad and the Ugly",8.5,22.5585,top_rated,1966-12-23
+MOBILE SUIT GUNDAM HATHAWAY The Sorcery of Nymph Circe,8.5,3.5766,upcoming,2026-01-30
+The Lord of the Rings: The Return of the King,8.497,32.7332,top_rated,2003-12-17
+Parasite,8.494,33.2765,top_rated,2019-05-30
+Pulp Fiction,8.484,35.6433,top_rated,1994-09-10
+Your Name.,8.475,24.6064,top_rated,2016-08-26
+Interstellar,8.471,58.8936,top_rated,2014-11-05
+Interstellar,8.471,58.8936,popular,2014-11-05
+Forrest Gump,8.464,33.0355,top_rated,1994-06-23
+GoodFellas,8.453,28.0095,top_rated,1990-09-12
+¿Quieres ser mi hijo?,8.446,12.4564,top_rated,2023-09-21
+Fight Club,8.437,26.859,top_rated,1999-10-15
+The Lord of the Rings: The Fellowship of the Ring,8.432,28.4982,top_rated,2001-12-18
+City of God,8.43,13.0849,top_rated,2002-08-30
+Harakiri,8.43,9.104,top_rated,1962-09-15
+The Lord of the Rings: The Two Towers,8.416,20.4913,top_rated,2002-12-18
+Psycho,8.414,15.554,top_rated,1960-06-22
+One Flew Over the Cuckoo's Nest,8.412,10.9702,top_rated,1975-11-19
+A Dog's Will,8.41,4.7395,top_rated,2000-09-15
+Seven Samurai,8.4,16.9235,top_rated,1954-04-26
+Grave of the Fireflies,8.4,0.013,top_rated,1988-04-16
+Life Is Beautiful,8.4,12.4563,top_rated,1997-12-20
+Cinema Paradiso,8.4,9.0309,top_rated,1988-11-17
+Howl's Moving Castle,8.4,20.2216,top_rated,2004-09-09
+The Pianist,8.4,10.7433,top_rated,2002-09-17
+Fight Club,8.4,26.859,now_playing,1999-10-15
+Impossible Things,8.395,4.2278,top_rated,2021-06-17
+Spider-Man: Into the Spider-Verse,8.393,21.0257,top_rated,2018-12-06
+The Empire Strikes Back,8.393,12.3462,top_rated,1980-05-20
+Hope,8.388,9.2546,top_rated,2013-10-02
+A Silent Voice: The Movie,8.385,12.2829,top_rated,2016-09-17
+Once Upon a Time in America,8.383,11.472,top_rated,1984-05-23
+Gabriel's Inferno,8.38,4.018,top_rated,2020-05-29
+Se7en,8.38,21.7548,top_rated,1995-09-22
+Whiplash,8.374,19.4338,top_rated,2014-10-10
+Inception,8.372,30.4545,top_rated,2010-07-15
+Lucy Shimmers and the Prince of Peace,8.367,5.4648,top_rated,2020-10-19
+High and Low,8.358,7.276,top_rated,1963-03-01
