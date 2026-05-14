@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Leonora in the Morning Light,10.0,2.1778,upcoming,2025-07-17
-Kung Fu,10.0,2.8457,upcoming,2026-02-06
-Dear You,9.0,19.1799,now_playing,2026-04-30
-Krishnavataram Part 1: The Heart (Hridayam),9.0,11.9615,now_playing,2026-05-07
-Swapped,8.984,439.3294,top_rated,2026-05-01
-Swapped,8.98,439.3294,now_playing,2026-05-01
-Swapped,8.978,439.3294,popular,2026-05-01
-Gohan,8.8,3.2215,upcoming,2026-04-02
-The Shawshank Redemption,8.72,54.5658,top_rated,1994-09-23
-The Shawshank Redemption,8.72,54.5658,popular,1994-09-23
-The Godfather,8.686,43.4483,top_rated,1972-03-14
-The Godfather,8.686,43.4483,popular,1972-03-14
-12 Angry Men,8.6,21.1372,top_rated,1957-04-10
-The Godfather Part II,8.571,30.4736,top_rated,1974-12-20
-Schindler's List,8.568,25.9785,top_rated,1993-12-15
-Spirited Away,8.534,30.551,top_rated,2001-07-20
-¿Quieres ser mi novia?,8.534,45.6073,popular,2026-02-12
-The Dark Knight,8.53,39.104,top_rated,2008-07-16
-My Dearest Assassin,8.52,222.8938,now_playing,2026-05-06
-Dilwale Dulhania Le Jayenge,8.513,14.2752,top_rated,1995-10-20
-The Green Mile,8.505,25.7026,top_rated,1999-12-10
-The Legend of Hei 2,8.5,13.2905,now_playing,2025-07-18
-"Marty, Life Is Short",8.5,10.138,now_playing,2026-05-11
-The Lord of the Rings: The Return of the King,8.497,39.3387,top_rated,2003-12-17
-Parasite,8.494,35.3294,top_rated,2019-05-30
-Pulp Fiction,8.484,35.1094,top_rated,1994-09-10
-Your Name.,8.477,26.5802,top_rated,2016-08-26
-Interstellar,8.472,66.2538,top_rated,2014-11-05
-Interstellar,8.472,66.2538,popular,2014-11-05
-"The Good, the Bad and the Ugly",8.468,23.2086,top_rated,1966-12-23
-Forrest Gump,8.464,31.2401,top_rated,1994-06-23
-¿Quieres ser mi hijo?,8.458,11.2641,top_rated,2023-09-21
-My Dearest Assassin,8.456,222.8938,popular,2026-05-06
-GoodFellas,8.453,28.9557,top_rated,1990-09-12
-Grave of the Fireflies,8.442,0.0153,top_rated,1988-04-16
-Life Is Beautiful,8.438,12.7714,top_rated,1997-12-20
-Fight Club,8.438,32.2966,top_rated,1999-10-15
-Fight Club,8.438,32.2966,now_playing,1999-10-15
-The Lord of the Rings: The Fellowship of the Ring,8.434,37.4141,top_rated,2001-12-18
-Harakiri,8.433,10.9993,top_rated,1962-09-15
-Project Hail Mary,8.432,369.2965,popular,2026-03-15
-Project Hail Mary,8.431,369.2965,now_playing,2026-03-15
-City of God,8.43,14.3067,top_rated,2002-08-30
-Project Hail Mary,8.429,369.2965,top_rated,2026-03-15
-Cinema Paradiso,8.426,10.2462,top_rated,1988-11-17
-The Lord of the Rings: The Two Towers,8.417,29.6985,top_rated,2002-12-18
-Psycho,8.414,19.2829,top_rated,1960-06-22
-One Flew Over the Cuckoo's Nest,8.412,14.7189,top_rated,1975-11-19
-A Dog's Will,8.409,5.3874,top_rated,2000-09-15
-Seven Samurai,8.4,16.7064,top_rated,1954-04-26
+Kung Fu,10.0,2.5395,upcoming,2026-02-06
+Dear You,9.0,17.6897,now_playing,2026-04-30
+Swapped,8.99,425.2006,top_rated,2026-05-01
+Swapped,8.989,425.2006,popular,2026-05-01
+Swapped,8.987,425.2006,now_playing,2026-05-01
+Gohan,8.8,3.907,upcoming,2026-04-02
+The Shawshank Redemption,8.72,52.0334,top_rated,1994-09-23
+The Shawshank Redemption,8.72,52.0334,popular,1994-09-23
+A Marvel Television Special Presentation - The Punisher: One Last Kill,8.7,306.4791,now_playing,2026-05-12
+The Godfather,8.686,39.3318,top_rated,1972-03-14
+The Godfather,8.686,39.3318,popular,1972-03-14
+"Marty, Life Is Short",8.667,16.541,now_playing,2026-05-11
+A Marvel Television Special Presentation - The Punisher: One Last Kill,8.653,306.4791,popular,2026-05-12
+A Marvel Television Special Presentation - The Punisher: One Last Kill,8.604,306.4791,top_rated,2026-05-12
+The Godfather Part II,8.571,26.7893,top_rated,1974-12-20
+Schindler's List,8.568,25.2584,top_rated,1993-12-15
+12 Angry Men,8.56,21.6494,top_rated,1957-04-10
+My Dearest Assassin,8.547,222.0731,now_playing,2026-05-06
+Spirited Away,8.534,29.3775,top_rated,2001-07-20
+The Dark Knight,8.53,38.3873,top_rated,2008-07-16
+The Dark Knight,8.53,38.3873,popular,2008-07-16
+Dilwale Dulhania Le Jayenge,8.513,13.9256,top_rated,1995-10-20
+The Green Mile,8.505,26.0898,top_rated,1999-12-10
+My Dearest Assassin,8.5,222.0731,popular,2026-05-06
+The Legend of Hei 2,8.5,12.7986,now_playing,2025-07-18
+The Lord of the Rings: The Return of the King,8.498,37.5693,top_rated,2003-12-17
+The Lord of the Rings: The Return of the King,8.497,37.5693,popular,2003-12-17
+Parasite,8.494,35.563,top_rated,2019-05-30
+¿Quieres ser mi novia?,8.489,46.7877,popular,2026-02-12
+Pulp Fiction,8.484,38.2666,top_rated,1994-09-10
+Project Hail Mary,8.481,377.43,popular,2026-03-15
+Project Hail Mary,8.481,377.43,now_playing,2026-03-15
+Project Hail Mary,8.48,377.43,top_rated,2026-03-15
+Your Name.,8.478,25.5064,top_rated,2016-08-26
+Interstellar,8.472,65.1496,top_rated,2014-11-05
+Interstellar,8.472,65.1496,popular,2014-11-05
+"The Good, the Bad and the Ugly",8.468,21.5502,top_rated,1966-12-23
+¿Quieres ser mi hijo?,8.467,11.4899,top_rated,2023-09-21
+Forrest Gump,8.465,31.7847,top_rated,1994-06-23
+Seven Samurai,8.451,15.0212,top_rated,1954-04-26
+Life Is Beautiful,8.438,11.9259,top_rated,1997-12-20
+The Lord of the Rings: The Fellowship of the Ring,8.434,35.1517,top_rated,2001-12-18
+The Lord of the Rings: The Fellowship of the Ring,8.434,35.1517,popular,2001-12-18
+Harakiri,8.433,10.6048,top_rated,1962-09-15
+City of God,8.43,14.3681,top_rated,2002-08-30
+One Flew Over the Cuckoo's Nest,8.412,14.8768,top_rated,1975-11-19
+A Dog's Will,8.409,5.29,top_rated,2000-09-15
+Grave of the Fireflies,8.4,0.0138,top_rated,1988-04-16
+Fight Club,8.4,32.82,top_rated,1999-10-15
+Cinema Paradiso,8.4,10.7193,top_rated,1988-11-17
