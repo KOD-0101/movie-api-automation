@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Tom Clancy's Jack Ryan: Ghost War,10.0,9.5334,upcoming,2026-05-20
-Dear You,9.1,31.934,now_playing,2026-04-30
-Accidental Partners,9.0,70.4739,popular,2026-03-12
-Swapped,8.987,396.9951,popular,2026-05-01
-Swapped,8.986,396.9951,top_rated,2026-05-01
-Swapped,8.986,396.9951,now_playing,2026-05-01
-Gohan,8.8,3.5896,upcoming,2026-04-02
-The Shawshank Redemption,8.721,50.7363,popular,1994-09-23
-The Shawshank Redemption,8.72,50.7363,top_rated,1994-09-23
-The Godfather,8.7,42.8944,top_rated,1972-03-14
-The Godfather,8.7,42.8944,popular,1972-03-14
-The Godfather Part II,8.6,27.3195,top_rated,1974-12-20
-The Punisher: One Last Kill,8.6,610.8006,popular,2026-05-12
-The Punisher: One Last Kill,8.6,610.8006,now_playing,2026-05-12
-My Dearest Assassin,8.589,183.5782,popular,2026-05-06
-My Dearest Assassin,8.589,183.5782,now_playing,2026-05-06
-The Punisher: One Last Kill,8.584,610.8006,top_rated,2026-05-12
-¿Quieres ser mi novia?,8.582,38.9148,popular,2026-02-12
-Schindler's List,8.568,25.814,top_rated,1993-12-15
-12 Angry Men,8.56,24.4643,top_rated,1957-04-10
-Project Hail Mary,8.557,445.9974,top_rated,2026-03-15
-Project Hail Mary,8.557,445.9974,now_playing,2026-03-15
-Project Hail Mary,8.555,445.9974,popular,2026-03-15
-Spirited Away,8.534,31.6468,top_rated,2001-07-20
-The Dark Knight,8.53,38.0683,top_rated,2008-07-16
-The Dark Knight,8.53,38.0683,popular,2008-07-16
-Dilwale Dulhania Le Jayenge,8.513,14.6523,top_rated,1995-10-20
-The Green Mile,8.505,27.4157,top_rated,1999-12-10
-Seven Samurai,8.5,16.2501,top_rated,1954-04-26
-Remarkably Bright Creatures,8.5,125.026,popular,2026-05-07
-The Lord of the Rings: The Return of the King,8.5,36.9723,popular,2003-12-17
-"Marty, Life Is Short",8.5,15.6647,now_playing,2026-05-11
-The Legend of Hei 2,8.5,12.286,now_playing,2025-07-18
-The Lord of the Rings: The Return of the King,8.498,36.9723,top_rated,2003-12-17
-Parasite,8.494,35.6055,top_rated,2019-05-30
-Parasite,8.494,35.6055,popular,2019-05-30
-Pulp Fiction,8.484,37.7115,top_rated,1994-09-10
-Pulp Fiction,8.484,37.7115,popular,1994-09-10
-¿Quieres ser mi hijo?,8.481,11.9062,top_rated,2023-09-21
-Your Name.,8.478,27.7577,top_rated,2016-08-26
-Interstellar,8.473,65.1519,top_rated,2014-11-05
-Interstellar,8.473,65.1519,popular,2014-11-05
-Remarkably Bright Creatures,8.47,125.026,now_playing,2026-05-07
-"The Good, the Bad and the Ugly",8.469,22.7509,top_rated,1966-12-23
-Forrest Gump,8.465,28.1216,top_rated,1994-06-23
-GoodFellas,8.453,26.7483,top_rated,1990-09-12
-Grave of the Fireflies,8.44,0.0139,top_rated,1988-04-16
-Life Is Beautiful,8.438,14.6435,top_rated,1997-12-20
-The Lord of the Rings: The Fellowship of the Ring,8.434,33.0536,top_rated,2001-12-18
-City of God,8.429,13.9439,top_rated,2002-08-30
+Passenger,10.0,12.4025,now_playing,2026-05-20
+Passenger,10.0,12.4025,upcoming,2026-05-20
+Dear You,9.214,50.9007,now_playing,2026-04-30
+Accidental Partners,9.186,90.2707,popular,2026-03-12
+Swapped,8.995,396.2282,top_rated,2026-05-01
+Swapped,8.995,396.2282,popular,2026-05-01
+Swapped,8.995,396.2282,now_playing,2026-05-01
+Gohan,8.8,3.5677,upcoming,2026-04-02
+The Shawshank Redemption,8.72,54.4704,top_rated,1994-09-23
+The Shawshank Redemption,8.72,54.4704,popular,1994-09-23
+The Godfather,8.7,41.9309,popular,1972-03-14
+The Godfather,8.686,41.9309,top_rated,1972-03-14
+¿Quieres ser mi novia?,8.611,40.6312,popular,2026-02-12
+The Punisher: One Last Kill,8.6,716.6387,now_playing,2026-05-12
+My Dearest Assassin,8.6,187.3038,now_playing,2026-05-06
+Project Hail Mary,8.584,479.091,now_playing,2026-03-15
+Project Hail Mary,8.583,479.091,top_rated,2026-03-15
+Project Hail Mary,8.583,479.091,popular,2026-03-15
+My Dearest Assassin,8.583,187.3038,popular,2026-05-06
+The Godfather Part II,8.571,25.5297,top_rated,1974-12-20
+Schindler's List,8.568,24.2769,top_rated,1993-12-15
+The Punisher: One Last Kill,8.567,716.6387,top_rated,2026-05-12
+The Punisher: One Last Kill,8.567,716.6387,popular,2026-05-12
+12 Angry Men,8.56,22.4717,top_rated,1957-04-10
+Spirited Away,8.534,32.3393,top_rated,2001-07-20
+Remarkably Bright Creatures,8.534,126.7479,popular,2026-05-07
+Remarkably Bright Creatures,8.534,126.7479,now_playing,2026-05-07
+The Dark Knight,8.53,36.7126,top_rated,2008-07-16
+The Dark Knight,8.53,36.7126,popular,2008-07-16
+Dilwale Dulhania Le Jayenge,8.513,13.599,top_rated,1995-10-20
+The Green Mile,8.505,25.7707,top_rated,1999-12-10
+Your Name.,8.5,28.5576,top_rated,2016-08-26
+The Legend of Hei 2,8.5,12.7262,now_playing,2025-07-18
+Tom Clancy's Jack Ryan: Ghost War,8.5,10.6078,upcoming,2026-05-20
+The Lord of the Rings: The Return of the King,8.497,35.5795,top_rated,2003-12-17
+The Lord of the Rings: The Return of the King,8.497,35.5795,popular,2003-12-17
+Parasite,8.494,35.3382,top_rated,2019-05-30
+Parasite,8.494,35.3382,popular,2019-05-30
+Pulp Fiction,8.484,35.8759,top_rated,1994-09-10
+Pulp Fiction,8.484,35.8759,popular,1994-09-10
+¿Quieres ser mi hijo?,8.481,12.2096,top_rated,2023-09-21
+Interstellar,8.474,66.5781,popular,2014-11-05
+Interstellar,8.473,66.5781,top_rated,2014-11-05
+"The Good, the Bad and the Ugly",8.468,22.0763,top_rated,1966-12-23
+Forrest Gump,8.465,28.4143,top_rated,1994-06-23
+GoodFellas,8.453,24.9452,top_rated,1990-09-12
+Seven Samurai,8.451,15.6326,top_rated,1954-04-26
+Grave of the Fireflies,8.441,0.0147,top_rated,1988-04-16
+Life Is Beautiful,8.438,12.9222,top_rated,1997-12-20
+Fight Club,8.438,30.3163,top_rated,1999-10-15
