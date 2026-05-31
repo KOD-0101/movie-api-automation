@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Scary Movie,10.0,30.0748,now_playing,2026-06-03
-Scary Movie,10.0,30.0748,upcoming,2026-06-03
-Accidental Partners,9.102,71.2612,popular,2026-03-12
-Dear You,9.1,23.1224,now_playing,2026-04-30
-Swapped,9.0,270.0947,top_rated,2026-05-01
-Swapped,9.0,270.0947,popular,2026-05-01
-Raja Shivaji,9.0,62.0527,popular,2026-05-01
-Swapped,9.0,270.0947,now_playing,2026-05-01
-Raja Shivaji,9.0,62.0527,now_playing,2026-05-01
-Masters of the Universe,9.0,39.3325,now_playing,2026-06-03
-Masters of the Universe,9.0,39.3325,upcoming,2026-06-03
-Power Ballad,9.0,5.888,upcoming,2026-05-18
-The Shawshank Redemption,8.7,73.9032,top_rated,1994-09-23
-The Shawshank Redemption,8.7,73.9032,popular,1994-09-23
-The Last Whale Singer,8.7,3.9738,upcoming,2026-02-12
-The Godfather,8.687,47.795,top_rated,1972-03-14
-The Godfather,8.687,47.795,popular,1972-03-14
-Project Hail Mary,8.638,270.6206,top_rated,2026-03-15
-My Dearest Assassin,8.634,64.569,popular,2026-05-06
-My Dearest Assassin,8.634,64.569,now_playing,2026-05-06
-12 Angry Men,8.6,22.3676,top_rated,1957-04-10
-Project Hail Mary,8.6,270.6206,popular,2026-03-15
-Detective Conan: Fallen Angel of the Highway,8.6,8.4656,upcoming,2026-04-10
-The Godfather Part II,8.572,30.2964,top_rated,1974-12-20
-Schindler's List,8.569,27.3576,top_rated,1993-12-15
-Remarkably Bright Creatures,8.544,77.8666,popular,2026-05-07
-Remarkably Bright Creatures,8.541,77.8666,top_rated,2026-05-07
-Spirited Away,8.534,37.6928,top_rated,2001-07-20
-The Dark Knight,8.531,47.1044,top_rated,2008-07-16
-The Dark Knight,8.531,47.1044,popular,2008-07-16
-Dilwale Dulhania Le Jayenge,8.513,19.2377,top_rated,1995-10-20
-The Green Mile,8.506,30.4815,top_rated,1999-12-10
-¿Quieres ser mi hijo?,8.5,12.4557,top_rated,2023-09-21
-Interstellar,8.5,73.08,popular,2014-11-05
-Krishnavataram Part 1: The Heart (Hridayam),8.5,51.3313,popular,2026-05-07
-Remarkably Bright Creatures,8.5,77.8666,now_playing,2026-05-07
-Krishnavataram Part 1: The Heart (Hridayam),8.5,51.3313,now_playing,2026-05-07
-The Lord of the Rings: The Return of the King,8.499,43.9018,top_rated,2003-12-17
-Parasite,8.495,38.4006,top_rated,2019-05-30
-Pulp Fiction,8.484,35.1235,top_rated,1994-09-10
-Your Name.,8.479,29.3308,top_rated,2016-08-26
-Your Name.,8.479,29.3308,upcoming,2016-08-26
-Interstellar,8.475,73.08,top_rated,2014-11-05
-"The Good, the Bad and the Ugly",8.468,22.5136,top_rated,1966-12-23
-Forrest Gump,8.465,32.0264,top_rated,1994-06-23
-GoodFellas,8.453,24.8142,top_rated,1990-09-12
-Seven Samurai,8.453,17.2559,top_rated,1954-04-26
-Grave of the Fireflies,8.442,0.0136,top_rated,1988-04-16
-Fight Club,8.438,29.6992,top_rated,1999-10-15
-Life Is Beautiful,8.438,12.4828,top_rated,1997-12-20
+The Last Supper,10.0,66.7728,popular,2025-10-23
+Scary Movie,10.0,30.6136,now_playing,2026-06-03
+Power Ballad,9.3,5.8708,upcoming,2026-05-18
+Masters of the Universe,9.2,38.8965,now_playing,2026-06-03
+Masters of the Universe,9.2,38.8965,upcoming,2026-06-03
+Accidental Partners,9.109,70.2559,popular,2026-03-12
+Dear You,9.1,22.4534,now_playing,2026-04-30
+Raja Shivaji,9.0,60.6718,popular,2026-05-01
+Raja Shivaji,9.0,60.6718,now_playing,2026-05-01
+Swapped,8.986,263.9889,top_rated,2026-05-01
+Swapped,8.986,263.9889,popular,2026-05-01
+Swapped,8.986,263.9889,now_playing,2026-05-01
+The Shawshank Redemption,8.721,78.9406,top_rated,1994-09-23
+The Shawshank Redemption,8.7,78.9406,popular,1994-09-23
+The Last Whale Singer,8.7,3.8863,upcoming,2026-02-12
+The Godfather,8.687,44.8794,top_rated,1972-03-14
+The Godfather,8.687,44.8794,popular,1972-03-14
+My Dearest Assassin,8.644,62.411,popular,2026-05-06
+My Dearest Assassin,8.644,62.411,now_playing,2026-05-06
+Project Hail Mary,8.643,294.0202,top_rated,2026-03-15
+Project Hail Mary,8.643,294.0202,popular,2026-03-15
+Detective Conan: Fallen Angel of the Highway,8.6,8.2844,upcoming,2026-04-10
+The Godfather Part II,8.572,28.5567,top_rated,1974-12-20
+Schindler's List,8.568,25.4622,top_rated,1993-12-15
+12 Angry Men,8.561,23.0069,top_rated,1957-04-10
+Remarkably Bright Creatures,8.54,73.2258,top_rated,2026-05-07
+Remarkably Bright Creatures,8.54,73.2258,popular,2026-05-07
+Remarkably Bright Creatures,8.54,73.2258,now_playing,2026-05-07
+Spirited Away,8.534,34.6386,top_rated,2001-07-20
+The Dark Knight,8.531,47.3865,top_rated,2008-07-16
+The Dark Knight,8.531,47.3865,popular,2008-07-16
+Dilwale Dulhania Le Jayenge,8.513,18.5232,top_rated,1995-10-20
+The Green Mile,8.507,28.0739,top_rated,1999-12-10
+Forrest Gump,8.5,31.39,top_rated,1994-06-23
+Krishnavataram Part 1: The Heart (Hridayam),8.5,47.1008,popular,2026-05-07
+Krishnavataram Part 1: The Heart (Hridayam),8.5,47.1008,now_playing,2026-05-07
+The Lord of the Rings: The Return of the King,8.499,42.3415,top_rated,2003-12-17
+Parasite,8.495,36.9306,top_rated,2019-05-30
+¿Quieres ser mi hijo?,8.494,11.2019,top_rated,2023-09-21
+Pulp Fiction,8.484,37.1874,top_rated,1994-09-10
+Your Name.,8.479,29.717,top_rated,2016-08-26
+Your Name.,8.479,29.717,upcoming,2016-08-26
+Interstellar,8.475,74.6225,top_rated,2014-11-05
+Interstellar,8.475,74.6225,popular,2014-11-05
+"The Good, the Bad and the Ugly",8.468,23.0421,top_rated,1966-12-23
+A Poet,8.466,3.9433,upcoming,2025-08-28
+GoodFellas,8.453,25.552,top_rated,1990-09-12
+Seven Samurai,8.453,16.9954,top_rated,1954-04-26
+Grave of the Fireflies,8.442,0.0133,top_rated,1988-04-16
+Life Is Beautiful,8.439,13.1878,top_rated,1997-12-20
