@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Leviticus,10.0,9.4402,upcoming,2026-06-18
-Dear You,9.1,13.8691,now_playing,2026-04-30
-Dear You,9.1,13.8691,upcoming,2026-04-30
-Swapped,9.0,160.7269,popular,2026-05-01
-Swapped,8.967,160.7269,top_rated,2026-05-01
-The Shawshank Redemption,8.723,70.9491,top_rated,1994-09-23
-The Shawshank Redemption,8.723,70.9491,popular,1994-09-23
-Project Hail Mary,8.7,145.3122,popular,2026-03-15
-The Godfather,8.687,38.59,top_rated,1972-03-14
-Project Hail Mary,8.683,145.3122,top_rated,2026-03-15
-Michael,8.65,512.4438,top_rated,2026-04-22
-Michael,8.65,512.4438,popular,2026-04-22
-Michael,8.649,512.4438,now_playing,2026-04-22
-The Godfather Part II,8.572,25.5135,top_rated,1974-12-20
-Remarkably Bright Creatures,8.57,36.5467,top_rated,2026-05-07
-Schindler's List,8.569,21.8596,top_rated,1993-12-15
-12 Angry Men,8.562,20.8498,top_rated,1957-04-10
-Dilwale Dulhania Le Jayenge,8.511,14.5239,top_rated,1995-10-20
-The Green Mile,8.507,24.3379,top_rated,1999-12-10
-Spirited Away,8.5,29.1847,top_rated,2001-07-20
-The Dark Knight,8.5,47.5608,top_rated,2008-07-16
-The Lord of the Rings: The Return of the King,8.5,39.8934,top_rated,2003-12-17
-¿Quieres ser mi hijo?,8.5,9.2114,top_rated,2023-09-21
-Interstellar,8.5,73.2445,popular,2014-11-05
-Interstellar,8.5,73.2445,now_playing,2014-11-05
-The Death of Robin Hood,8.5,9.7176,upcoming,2026-06-18
-The Get Out,8.5,4.1943,upcoming,2026-06-18
-Parasite,8.494,33.2497,top_rated,2019-05-30
-Pulp Fiction,8.483,35.4222,top_rated,1994-09-10
-Your Name.,8.481,23.2122,top_rated,2016-08-26
-Your Name.,8.481,23.2122,now_playing,2016-08-26
-Interstellar,8.478,73.2445,top_rated,2014-11-05
-"The Good, the Bad and the Ugly",8.467,18.223,top_rated,1966-12-23
-Forrest Gump,8.465,22.3028,top_rated,1994-06-23
-GoodFellas,8.454,30.3535,top_rated,1990-09-12
-Seven Samurai,8.45,11.7836,top_rated,1954-04-26
+Leviticus,10.0,10.8554,upcoming,2026-06-17
+Minions & Monsters,9.5,24.6585,now_playing,2026-06-24
+Minions & Monsters,9.5,24.6585,upcoming,2026-06-24
+Dear You,9.2,18.8,now_playing,2026-04-30
+Dear You,9.2,18.8,upcoming,2026-04-30
+Gohan,9.0,5.0712,upcoming,2026-04-02
+Swapped,8.969,156.5555,top_rated,2026-05-01
+Swapped,8.969,156.5555,popular,2026-05-01
+The Shawshank Redemption,8.723,76.1807,top_rated,1994-09-23
+The Shawshank Redemption,8.723,76.1807,popular,1994-09-23
+Michael,8.7,503.091,popular,2026-04-22
+The Godfather,8.687,37.6909,top_rated,1972-03-14
+Project Hail Mary,8.687,138.0221,top_rated,2026-03-15
+Project Hail Mary,8.687,138.0221,popular,2026-03-15
+Michael,8.652,503.091,now_playing,2026-04-22
+Michael,8.649,503.091,top_rated,2026-04-22
+The Godfather Part II,8.572,25.2628,top_rated,1974-12-20
+Schindler's List,8.569,21.4897,top_rated,1993-12-15
+Remarkably Bright Creatures,8.566,32.3025,top_rated,2026-05-07
+12 Angry Men,8.562,19.8515,top_rated,1957-04-10
+Spirited Away,8.535,30.9662,top_rated,2001-07-20
+The Dark Knight,8.531,42.6252,top_rated,2008-07-16
+The Dark Knight,8.531,42.6252,popular,2008-07-16
+Dilwale Dulhania Le Jayenge,8.511,15.0867,top_rated,1995-10-20
+The Green Mile,8.5,23.6114,top_rated,1999-12-10
+The Lord of the Rings: The Return of the King,8.5,38.1236,top_rated,2003-12-17
+Parasite,8.5,32.7631,top_rated,2019-05-30
+¿Quieres ser mi hijo?,8.5,8.71,top_rated,2023-09-21
+Interstellar,8.5,70.1924,top_rated,2014-11-05
+GoodFellas,8.5,26.0279,top_rated,1990-09-12
+Interstellar,8.5,70.1924,popular,2014-11-05
+Interstellar,8.5,70.1924,now_playing,2014-11-05
+Supergirl,8.5,37.4307,now_playing,2026-06-23
+Supergirl,8.5,37.4307,upcoming,2026-06-23
+The Death of Robin Hood,8.5,11.4998,upcoming,2026-06-18
+The Get Out,8.5,3.7487,upcoming,2026-06-18
+Pulp Fiction,8.483,35.1261,top_rated,1994-09-10
+Your Name.,8.481,23.4738,top_rated,2016-08-26
+Your Name.,8.481,23.4738,now_playing,2016-08-26
+"The Good, the Bad and the Ugly",8.468,15.8822,top_rated,1966-12-23
+Forrest Gump,8.465,21.756,top_rated,1994-06-23
 Grave of the Fireflies,8.442,0.0112,top_rated,1988-04-16
-Harakiri,8.439,7.6399,top_rated,1962-09-15
-Life Is Beautiful,8.439,13.8337,top_rated,1997-12-20
-Fight Club,8.438,28.7824,top_rated,1999-10-15
-City of God,8.429,13.363,top_rated,2002-08-30
-Cinema Paradiso,8.428,11.6352,top_rated,1988-11-17
-Chainsaw Man - The Movie: Reze Arc,8.416,25.7741,top_rated,2025-09-19
-Psycho,8.413,15.9445,top_rated,1960-06-22
-One Flew Over the Cuckoo's Nest,8.412,13.5408,top_rated,1975-11-19
-Protector,8.406,16.962,now_playing,2026-02-20
-Hope,8.402,15.3862,top_rated,2013-10-02
-The Lord of the Rings: The Fellowship of the Ring,8.4,36.7798,top_rated,2001-12-18
-The Lord of the Rings: The Two Towers,8.4,27.5447,top_rated,2002-12-18
-A Dog's Will,8.4,4.4024,top_rated,2000-09-15
+Harakiri,8.439,7.8095,top_rated,1962-09-15
+Life Is Beautiful,8.439,13.0632,top_rated,1997-12-20
+City of God,8.429,11.7039,top_rated,2002-08-30
+Protector,8.426,15.5337,now_playing,2026-02-20
+Chainsaw Man - The Movie: Reze Arc,8.419,25.533,top_rated,2025-09-19
+Psycho,8.413,14.6553,top_rated,1960-06-22
+One Flew Over the Cuckoo's Nest,8.412,14.9012,top_rated,1975-11-19
+Hope,8.402,14.9168,top_rated,2013-10-02
