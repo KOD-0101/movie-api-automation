@@ -1,51 +1,51 @@
 title,rating,popularity,category,release_date
-Bad Apples,10.0,7.5545,upcoming,2026-09-09
-Once Upon a Time in the Middle East,9.231,27.0918,now_playing,2026-08-08
-Once Upon a Time in the Middle East,9.231,27.0918,upcoming,2026-08-08
-Avatar Aang: The Last Airbender,9.2,85.1796,popular,2026-07-24
-Avatar Aang: The Last Airbender,9.197,85.1796,top_rated,2026-07-24
-Batman: Knightfall Part 1: Knightfall,9.073,146.4651,popular,2026-06-23
-By Any Means,9.0,17.3408,upcoming,2026-09-02
-Accidental Partners,8.88,19.8559,top_rated,2026-03-12
-Swapped,8.872,45.1334,top_rated,2026-05-01
-Facing El Chapo,8.845,230.3441,top_rated,2026-08-21
-Facing El Chapo,8.837,230.3441,popular,2026-08-21
-Facing El Chapo,8.837,230.3441,now_playing,2026-08-21
-Demon Slayer: Kimetsu no Yaiba Infinity Castle,8.786,75.7018,top_rated,2025-07-18
-Demon Slayer: Kimetsu no Yaiba Infinity Castle,8.786,75.7018,popular,2025-07-18
-The Shawshank Redemption,8.729,110.8935,top_rated,1994-09-23
-The Shawshank Redemption,8.729,110.8935,popular,1994-09-23
-The Shawshank Redemption,8.729,110.8935,now_playing,1994-09-23
-Michael,8.7,64.1399,now_playing,2026-04-22
-Bethlehem Kudumba Unit,8.7,16.2796,upcoming,2026-08-21
-The Godfather,8.687,62.5797,top_rated,1972-03-14
-The Godfather,8.687,62.5797,popular,1972-03-14
-Michael,8.654,64.1399,top_rated,2026-04-22
-Michael,8.654,64.1399,popular,2026-04-22
-Project Hail Mary,8.644,110.0207,top_rated,2026-03-15
-Project Hail Mary,8.644,110.0207,popular,2026-03-15
-The Godfather Part II,8.6,34.1106,top_rated,1974-12-20
-12 Angry Men,8.571,30.7921,top_rated,1957-04-10
-Schindler's List,8.57,35.5302,top_rated,1993-12-15
-Young Hearts,8.567,18.483,top_rated,2024-10-26
-The Dark Knight,8.535,62.0522,top_rated,2008-07-16
-The Dark Knight,8.535,62.0522,popular,2008-07-16
-Spirited Away,8.535,41.9982,now_playing,2001-07-20
-Chainsaw Man - The Movie: Reze Arc,8.534,36.6337,top_rated,2025-09-19
-The Green Mile,8.506,43.9857,top_rated,1999-12-10
-The Lord of the Rings: The Return of the King,8.506,48.1909,top_rated,2003-12-17
-Dilwale Dulhania Le Jayenge,8.503,14.2978,top_rated,1995-10-20
-Spirited Away,8.5,41.9982,top_rated,2001-07-20
-Interstellar,8.5,66.0215,top_rated,2014-11-05
-Forrest Gump,8.5,46.0334,top_rated,1994-06-23
-Interstellar,8.5,66.0215,popular,2014-11-05
-Parasite,8.491,38.3006,top_rated,2019-05-30
-Your Name.,8.485,28.1607,top_rated,2016-07-01
-Your Name.,8.485,28.1607,now_playing,2016-07-01
-Your Name.,8.485,28.1607,upcoming,2016-07-01
-Pulp Fiction,8.481,45.9903,top_rated,1994-09-10
-"The Good, the Bad and the Ugly",8.466,29.1113,top_rated,1966-12-23
-Harakiri,8.46,11.43,top_rated,1962-09-15
-Seven Samurai,8.453,18.9762,top_rated,1954-04-26
-GoodFellas,8.451,29.4371,top_rated,1990-09-12
-Grave of the Fireflies,8.447,0.0169,top_rated,1988-04-16
+Bad Apples,10.0,7.8477,upcoming,2026-09-09
+Avatar Aang: The Last Airbender,9.198,84.0288,top_rated,2026-07-24
+Avatar Aang: The Last Airbender,9.198,84.0288,popular,2026-07-24
+Once Upon a Time in the Middle East,9.185,27.0405,now_playing,2026-08-08
+Once Upon a Time in the Middle East,9.185,27.0405,upcoming,2026-08-08
+Batman: Knightfall Part 1: Knightfall,9.062,143.0709,popular,2026-06-23
+Swapped,8.9,40.5131,top_rated,2026-05-01
+Accidental Partners,8.88,18.9598,top_rated,2026-03-12
+Facing El Chapo,8.837,206.6685,popular,2026-08-21
+By Any Means,8.833,23.6288,upcoming,2026-09-02
+Facing El Chapo,8.816,206.6685,top_rated,2026-08-21
+Facing El Chapo,8.8,206.6685,now_playing,2026-08-21
+Demon Slayer: Kimetsu no Yaiba Infinity Castle,8.785,69.7594,top_rated,2025-07-18
+Demon Slayer: Kimetsu no Yaiba Infinity Castle,8.785,69.7594,popular,2025-07-18
+The Shawshank Redemption,8.729,108.5131,top_rated,1994-09-23
+The Shawshank Redemption,8.729,108.5131,popular,1994-09-23
+The Shawshank Redemption,8.729,108.5131,now_playing,1994-09-23
+The Godfather,8.7,62.9599,top_rated,1972-03-14
+The Godfather,8.7,62.9599,popular,1972-03-14
+Bethlehem Kudumba Unit,8.7,16.3619,upcoming,2026-08-21
+Michael,8.654,60.8546,top_rated,2026-04-22
+Michael,8.654,60.8546,popular,2026-04-22
+Michael,8.654,60.8546,now_playing,2026-04-22
+Project Hail Mary,8.6,106.2991,top_rated,2026-03-15
+The Godfather Part II,8.6,33.9961,top_rated,1974-12-20
+12 Angry Men,8.6,32.9388,top_rated,1957-04-10
+Schindler's List,8.6,31.7096,top_rated,1993-12-15
+Project Hail Mary,8.6,106.2991,popular,2026-03-15
+Young Hearts,8.561,18.5966,top_rated,2024-10-26
+Chainsaw Man - The Movie: Reze Arc,8.537,40.5616,top_rated,2025-09-19
+The Dark Knight,8.535,60.9521,top_rated,2008-07-16
+Spirited Away,8.535,39.1974,top_rated,2001-07-20
+The Dark Knight,8.535,60.9521,popular,2008-07-16
+Spirited Away,8.535,39.1974,now_playing,2001-07-20
+The Green Mile,8.506,40.3422,top_rated,1999-12-10
+Dilwale Dulhania Le Jayenge,8.503,13.6402,top_rated,1995-10-20
+The Lord of the Rings: The Return of the King,8.5,44.0506,top_rated,2003-12-17
+Harakiri,8.5,10.9728,top_rated,1962-09-15
+Seven Samurai,8.5,16.3525,top_rated,1954-04-26
+Parasite,8.491,39.12,top_rated,2019-05-30
+Interstellar,8.487,63.3862,top_rated,2014-11-05
+Interstellar,8.487,63.3862,popular,2014-11-05
+Your Name.,8.485,26.4293,top_rated,2016-07-01
+Your Name.,8.485,26.4293,now_playing,2016-07-01
+Your Name.,8.485,26.4293,upcoming,2016-07-01
+Pulp Fiction,8.481,43.3639,top_rated,1994-09-10
+A Child of My Own,8.478,22.5673,now_playing,2026-07-30
+"The Good, the Bad and the Ugly",8.466,29.6489,top_rated,1966-12-23
+Forrest Gump,8.463,42.2538,top_rated,1994-06-23
+GoodFellas,8.451,27.3379,top_rated,1990-09-12
